@@ -1,11 +1,13 @@
-//Variable
-document.getElementById("form_submit").addEventListener("click", formSubmit);
+
 //document.getElementById("form_submit").onclick = function() {formSubmit()};
 let email;
 let pass;
 let loginSuccess;
 
-//document.getElementById("signInForm").addEventListener('submit', formSubmit);
+//Esconder mensaje
+document.getElementById("floatingMessage").style.display = "none";
+//Buscamos el click
+document.getElementById("form_submit").addEventListener("click", formSubmit);
 
 
 function formSubmit() 
@@ -26,9 +28,9 @@ function formSubmit()
     }
     else
     {
-        document.getElementById("floatingMessage").innerHTML="Email y password no coinciden";
+        document.getElementById("floatingMessage").innerHTML="Email y/o password no coinciden";
         document.getElementById("floatingMessage").style.color="red";
-        document.getElementById("floatingMessage").style.display='block';
+        document.getElementById("floatingMessage").style.display = "block";
         return false;
     }
 }
@@ -36,6 +38,5 @@ function formSubmit()
 
 
 
-//   console.log(window.location.href.split("/").pop()); 
 
-//   window.location.href.trimEnd(window.location.href.split("/").pop())
+
