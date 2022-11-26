@@ -91,6 +91,9 @@ class ExcelPrinter{
 
     const tblBody=table.querySelector("tbody");
     for (let j = 0; j < excel.rows().count(); j++) {
+      if (excel.rows().get(j)[0]==null) {
+        break;
+      } 
       const tblRow = document.createElement("tr");
       for (let i = 0; i< 9; i++) {
         const row = excel.rows().get(j);
