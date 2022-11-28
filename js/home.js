@@ -1,3 +1,16 @@
+// Real Viewport Height---------------------------------------------------------------------------
+// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+// We listen to the resize event
+window.addEventListener('resize', () => {
+  // We execute the same script as before
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+// Real Viewport Height---------------------------------------------------------------------------
+
 /* global bootstrap: false */
 (() => {
   'use strict'
@@ -61,7 +74,13 @@ class Row{
 
 }
 
+// //const excelInput0 = document.createAttribute('input');
+// const dataTransfer = new DataTransfer();
+// dataTransfer.items.add(myFile);//your file(s) reference(s)
+// document.getElementById('input_field').files = dataTransfer.files;
+
 // File.
+//const excelInput = document.getElementById('cbcExcel')
 const excelInput = document.getElementById('cbcExcel')
 excelInput.addEventListener('change', async function() {
   const content= await readXlsxFile(excelInput.files[0]);
@@ -78,6 +97,7 @@ excelInput.addEventListener('change', async function() {
 
 })
 
+excelInput.src='./database/cubicaciones.xlsm';
 
 class ExcelPrinter{
   static print(TableId, excel){
@@ -105,11 +125,6 @@ class ExcelPrinter{
       }
       tblBody.appendChild(tblRow);
     }
-
-
-
-    
-
 
   }
 }

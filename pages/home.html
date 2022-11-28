@@ -12,7 +12,7 @@
   <!-- CSS only -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/sidebars.css">
+  <link rel="stylesheet" href="../css/home.css">
 
 </head>
 
@@ -97,12 +97,12 @@
     </symbol>
   </svg>
 
-  <main class="d-flex flex-nowrap row">
+  <main class="d-flex flex-nowrap ">
 
     <h1 class="visually-hidden">Sidebars examples</h1>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark d-none d-sm-inline" style="width: 280px; height: 100vh;">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <img src="../img/logo-btd.svg" alt="" style="width: 50px; margin: 0px 10px 0px 5px;" >
+        <img src="../img/logo-btd-thick-white.svg" alt="" style="width: 50px; margin: 0px 10px 0px 5px;" >
         <span class="fs-4">Sidebar</span>
       </a>
       <hr>
@@ -168,9 +168,9 @@
     </div>
 
     
-    <div class="d-flex flex-column flex-shrink-0  bg-dark d-sm-none" style="width: 5rem;">
-      <a href="/" class="d-block py-3 px-2 link-light text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-        <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+    <div class="d-flex flex-column flex-shrink-0  bg-dark d-sm-none justify-content-center align-items-center " style="width: auto;">
+      <a href="/" class="d-block py-3 link-light text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+        <img src="../img/logo-btd-thick-white.svg" alt="" style="width: 40px; justify-self: center;" >
         <span class="visually-hidden">Icon-only</span>
       </a>
       <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -200,8 +200,8 @@
           </a>
         </li>
       </ul>
-      <div class="dropdown border-top">
-        <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown border-top px-2">
+        <a href="#" class="d-flex align-items-center justify-content-center py-3 link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small shadow">
@@ -216,7 +216,7 @@
 
     <div class="col overflow-scroll">
       
-        <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm" >
+        <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm">
 
         <table class="table table-striped" id="excel-table">
           <thead>
