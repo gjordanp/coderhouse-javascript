@@ -74,11 +74,8 @@ class Row{
 
 }
 
-// //const excelInput0 = document.createAttribute('input');
-// const dataTransfer = new DataTransfer();
-// dataTransfer.items.add(myFile);//your file(s) reference(s)
-// document.getElementById('input_field').files = dataTransfer.files;
 
+// Leer excel desde input
 // File.
 //const excelInput = document.getElementById('cbcExcel')
 const excelInput = document.getElementById('cbcExcel')
@@ -86,18 +83,25 @@ excelInput.addEventListener('change', async function() {
   const content= await readXlsxFile(excelInput.files[0]);
   const excel=new Excel(content);
   header = excel.header();
-
   ExcelPrinter.print("excel-table",excel);
-
-  console.log(excel.header());
-  console.log(excel.type());
-  console.log(excel.rows().first());
-  console.log(excel.rows().get());
-  console.log(excel.rows().count());
-
+  // console.log(excel.header());
+  // console.log(excel.type());
+  // console.log(excel.rows().first());
+  // console.log(excel.rows().get());
+  // console.log(excel.rows().count());
 })
 
-excelInput.src='./database/cubicaciones.xlsm';
+// Leer excel desde ruta en archivos 
+// Blob.
+fetch(excelInput.src)
+  .then(response => response.blob())
+  .then(blob => readXlsxFile(blob))
+  .then((rows) => {console.log(rows);
+    const content=rows;
+    const excel=new Excel(content)
+    ExcelPrinter.print("excel-table",excel);
+  })
+
 
 class ExcelPrinter{
   static print(TableId, excel){
