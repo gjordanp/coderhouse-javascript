@@ -116,19 +116,22 @@ class ExcelPrinter {
       const title = excel.header()[j];
 
       const div = document.createElement("div");
-      div.setAttribute("class", "dropdown ");
+      div.setAttribute("class", "dropdown");
+      //div.setAttribute("onclick", "e.stopPropagation()");
 
       const btn = document.createElement("button");
       btn.setAttribute("class", "btn btn-dark dropdown-toggle");
       btn.setAttribute("type", "button");
       btn.setAttribute("data-bs-toggle", "dropdown");
       btn.setAttribute("aria-expanded", "false");
-      btn.setAttribute("onclick", "tableSort(event)");
+      btn.setAttribute("onclick", "tableFilter(event)");
+      btn.setAttribute("data-bs-auto-close", "false");// Dropdown solo se cierre apretando el toogle https://getbootstrap.com/docs/5.0/components/dropdowns/
       btn.innerHTML = title;
 
       const ul = document.createElement("ul");
       ul.setAttribute("class", "dropdown-menu overflow-auto");
       ul.setAttribute("style", "max-height:50vh");
+      //ul.setAttribute("onchange", "tableFilter(event)");
 
       let columnData = [];
       for (let i = 0; i < excel.rows().count(); i++) {
@@ -150,7 +153,7 @@ class ExcelPrinter {
         const cbxInput = document.createElement("input");
         cbxInput.setAttribute("class", "form-check-input");
         cbxInput.setAttribute("type", "checkbox");
-        //cbxInput.setAttribute("onchange","tableSort()");
+        //cbxInput.setAttribute("onchange","tableFilter()");
         cbxInput.defaultChecked = true;
         //cbxInput.setAttribute("id","flexCheckDefault"+i);
         const cbxLabel = document.createElement("label");
@@ -180,7 +183,7 @@ class ExcelPrinter {
       for (let i = 0; i < 9; i++) {
         const row = excel.rows().get(j);
         const tblCell = document.createElement("td");
-        const cellText = document.createTextNode(row[i]);
+        const cellText = row[i]==null?document.createTextNode(""):document.createTextNode(row[i]);
 
         tblCell.appendChild(cellText);
         tblRow.appendChild(tblCell);
@@ -218,55 +221,136 @@ function tableSearch() {
   }
 }
 
-function tableSort(event) {
-  const btn = event.target;
-  if (btn.ariaExpanded == "true") {
-    return;
-  }
 
+function checkboxUpdate(event){
+  const btn = event.target;
+  const div = btn.parentElement;
+  const ul = div.children[1];
 
   let table = document.getElementById('excel-table')
   const tblHead = table.querySelector("thead")
   const tblBody = table.querySelector("tbody");
 
+
   //Loop en las filas
+  for (let j = 0; j < tblHead.children.length; j++) {
+    let visibleDataList = [];
 
-  for (let i = 0; i < tblBody.children.length; i++) {
+    // Loop en el dropdown para identificar checkboxes
+    for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
 
+      //Se crea la columna con los datos
+      for (let i = 0; i < tblBody.children.length; i++) {
+        const row = tblBody.children[i];
+        const data = row.children[j].innerHTML;
+        if (!(row.style.display=="none")) {
+          visibleDataList.push(data);
+        }
+      }
+
+      let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
+      let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
+      // if (chbx == true && !visibleDataList.includes(label) && btn.ariaExpanded == "true") {
+      //   tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
+      //   chbx=false;
+      // }
+      const button=tblHead.children[j].children[0].children[0];
+      if (!visibleDataList.includes(label) && !button.classList.value.includes("dropdown-filtered")) {
+        tblHead.children[j].children[0].children[1].children[i].style.display="none";
+      }
+      
+    }
+  }
+}
+
+
+function tableFilter(event) {
+  
+
+  const btn = event.target;
+  const div = btn.parentElement;
+  const th = div.parentElement;
+  const ul = div.children[1];
+
+  if (btn.ariaExpanded == "true") {
+    return;
+  }
+  // if (btn.ariaExpanded == "true") {
+  //   return;
+  // }
+  // const input = event.target;
+  // const ul = input.parentElement;
+  // if (ul.classList.value.includes("show")) {
+  //   return;
+  // }
+
+  let table = document.getElementById('excel-table')
+  const tblHead = table.querySelector("thead")
+  const tblBody = table.querySelector("tbody");
+ 
+  let j=getChildIndex(th)-3;
+
+ 
+  //Loop en las filas
     for (let j = 0; j < tblHead.children.length; j++) {
       let cbxList = [];
       let lbList = [];
+      let visibleDataList = [];
+
+
       // Loop en el dropdown para identificar checkboxes
       for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
 
+        //Se crea la columna con los datos
+        // for (let i = 0; i < tblBody.children.length; i++) {
+        //   const row = tblBody.children[i];
+        //   const data = row.children[j].innerHTML;
+        //   if (!(row.style.display=="none")) {
+        //     visibleDataList.push(data);
+        //   }
+        // }
+
         let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
         let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
+        // if (chbx == true && !visibleDataList.includes(label) && btn.ariaExpanded == "true") {
+        //   tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
+        //   chbx=false;
+        // }
+        
         if (chbx == true) {
           cbxList.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
           lbList.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
         }
       }
+      
+      for (let i = 0; i < tblBody.children.length; i++) {
 
-
-      const row = tblBody.children[i];
-      let displayRow = true;
-      const data = row.children[j].innerHTML;
-      if (data == "null") {
-        continue;
+        const row = tblBody.children[i];
+        let displayRow = true;
+        const data = row.children[j].innerHTML;
+        if (data == "null") {
+          continue;
+        }
+        if (!lbList.includes(data)) {
+          displayRow = false;
+          btn.classList.add("dropdown-filtered")
+          row.style.display = "none";
+        }
+        // else {
+        //   displayRow = true;
+        //   row.style.display = "table-row";
+        // }
       }
-      if (!lbList.includes(data)) {
-        displayRow = false;
-        row.style.display = "none";
-        break;
-      }
-      // else {
-      //   displayRow = true;
-      //   row.style.display = "table-row";
-      // }
-    }
 
 
   }
+
+  checkboxUpdate(event);
+  
+}
+
+function getChildIndex(node) {
+  return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
 

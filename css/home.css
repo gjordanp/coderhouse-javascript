@@ -64,3 +64,6 @@ main {
   overflow-y: auto;
 }
 
+.dropdown-filtered { 
+  font-weight: bold; }
+
