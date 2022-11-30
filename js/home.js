@@ -63,16 +63,19 @@ class Row{
   }
 
   name(){
-      return this.rows[0];
+      return this.row[0];
   }
   get(){
-      return this.rows;
+      return this.row;
+  }
+  elementAt(index){
+    return this.row[index];
   }
   count(){
-      return this.rows.length;
+      return this.row.length;
   }
-
 }
+
 
 
 // Leer excel desde input
@@ -110,7 +113,61 @@ class ExcelPrinter{
 
     for (let j = 0; j < 9; j++) {
       const title=excel.header()[j];
-      table.querySelector("thead>tr").innerHTML+=`<th>${title}</th>`
+
+      const div=document.createElement("div");
+      div.setAttribute("class","dropdown ");
+
+      const btn=document.createElement("button");
+      btn.setAttribute("class","btn btn-dark dropdown-toggle");
+      btn.setAttribute("type","button");
+      btn.setAttribute("data-bs-toggle","dropdown");
+      btn.setAttribute("aria-expanded","false");
+      btn.setAttribute("onclick","tableSort(event)");
+      btn.innerHTML=title;
+
+      const ul=document.createElement("ul");
+      ul.setAttribute("class","dropdown-menu overflow-auto");
+      ul.setAttribute("style","max-height:50vh");
+
+      let columnData=[];
+      for (let i = 0; i < excel.rows().count(); i++) {
+        if (excel.rows().get(i)[0]==null) {
+          break;
+        } 
+        let data=excel.rows().get(i)[j];
+        if (columnData.includes(data)) {
+          continue;
+        }
+        else{
+          columnData.push(data);
+        }
+        
+        
+
+        const li=document.createElement("li");
+        li.setAttribute("class","dropdown-item");
+        const cbxInput=document.createElement("input");
+        cbxInput.setAttribute("class","form-check-input");
+        cbxInput.setAttribute("type","checkbox");
+        //cbxInput.setAttribute("onchange","tableSort()");
+        cbxInput.defaultChecked=true;
+        //cbxInput.setAttribute("id","flexCheckDefault"+i);
+        const cbxLabel=document.createElement("label");
+        cbxLabel.setAttribute("class","form-check-label mx-2");
+        //cbxLabel.setAttribute("for","flexCheckDefault"+i);
+        cbxLabel.innerHTML=data;
+
+        li.appendChild(cbxInput);
+        li.appendChild(cbxLabel);
+        ul.appendChild(li);
+      }
+
+      div.appendChild(btn);
+      div.appendChild(ul);
+
+      const tblhead=document.createElement("th");
+      tblhead.appendChild(div);
+      table.querySelector("thead").appendChild(tblhead);
     }
 
     const tblBody=table.querySelector("tbody");
@@ -129,6 +186,81 @@ class ExcelPrinter{
       }
       tblBody.appendChild(tblRow);
     }
+
+  }
+}
+
+function tableSearch() {
+  
+
+  let searchTxt=document.getElementById('searchInput').value;
+  let table = document.getElementById('excel-table')
+  const tblBody=table.querySelector("tbody");
+  // Recorremos las filas
+  for (let i = 0; i < tblBody.children.length; i++) {
+    let keepRow=false;
+    const row = tblBody.children[i];
+    //Recorremos los datos de cada fila
+    for (let j = 0; j < row.children.length; j++) {
+      const data = row.children[j].innerHTML;
+      if (data.toLowerCase().includes(searchTxt)) {
+        keepRow=true;
+        break;
+      }
+    }
+    if (keepRow==false) {
+      row.style.display="none";
+    }
+    else{
+      row.style.display="table-row";
+    }
+  }
+}
+
+function tableSort(event) {
+  const btn=event.target;
+  if (btn.ariaExpanded=="true") {
+    return;
+  }
+  
+
+  let table = document.getElementById('excel-table')
+  const tblHead=table.querySelector("thead")
+  const tblBody=table.querySelector("tbody");
+
+
+  for (let j = 0; j < tblHead.children.length; j++) {
+    let cbxList=[];
+    let lbList=[];
+    // Loop en el dropdown para identificar checkboxes
+    for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
+
+      let chbx=tblHead.children[j].children[0].children[1].children[i].children[0].checked;
+      let label=tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
+      if (chbx==true) {
+        cbxList.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
+        lbList.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
+      }
+    }
+
+    //Loop en las filas
+    for (let i = 0; i < tblBody.children.length; i++) {
+      let keepRow=true;
+      const row = tblBody.children[i];
+
+      const data = row.children[j].innerHTML;
+      if (row.style.display=="none" || data=="null") {
+        continue;
+      }
+      if (!lbList.includes(data)) {
+        keepRow=false;
+        row.style.display="none";
+      }
+      // else{
+      //   row.style.display="table-row";
+      // }
+    }
+
 
   }
 }
