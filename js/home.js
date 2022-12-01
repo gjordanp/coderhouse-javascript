@@ -234,19 +234,19 @@ function checkboxUpdate(event){
 
   //Loop en las filas
   for (let j = 0; j < tblHead.children.length; j++) {
+    
     let visibleDataList = [];
+    //Se crea la columna con los datos
+    for (let k = 0; k < tblBody.children.length; k++) {
+      const row = tblBody.children[k];
+      const data = row.children[j].innerHTML;
+      if (!(row.style.display=="none")) {
+        visibleDataList.push(data);
+      }
+    }
 
     // Loop en el dropdown para identificar checkboxes
     for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
-
-      //Se crea la columna con los datos
-      for (let i = 0; i < tblBody.children.length; i++) {
-        const row = tblBody.children[i];
-        const data = row.children[j].innerHTML;
-        if (!(row.style.display=="none")) {
-          visibleDataList.push(data);
-        }
-      }
 
       let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
       let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
@@ -254,9 +254,18 @@ function checkboxUpdate(event){
       //   tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
       //   chbx=false;
       // }
+
       const button=tblHead.children[j].children[0].children[0];
-      if (!visibleDataList.includes(label) && !button.classList.value.includes("dropdown-filtered")) {
-        tblHead.children[j].children[0].children[1].children[i].style.display="none";
+      //if (!visibleDataList.includes(label) && !button.classList.value.includes("dropdown-filtered")) {
+      if (chbx == true && !visibleDataList.includes(label)) {
+        tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
+        if (!button.classList.value.includes("dropdown-filtered")) {
+          tblHead.children[j].children[0].children[1].children[i].style.display="none";
+        }
+        
+      }
+      else if(!chbx && visibleDataList.includes(label)){
+        tblHead.children[j].children[0].children[1].children[i].children[0].checked=true;
       }
       
     }
@@ -265,6 +274,7 @@ function checkboxUpdate(event){
 
 
 function tableFilter(event) {
+  
   
 
   const btn = event.target;
@@ -288,64 +298,76 @@ function tableFilter(event) {
   const tblHead = table.querySelector("thead")
   const tblBody = table.querySelector("tbody");
  
-  let j=getChildIndex(th)-3;
+  
+  //let j=getChildIndex(th)-3;
 
  
   //Loop en las filas
     for (let j = 0; j < tblHead.children.length; j++) {
-      let cbxList = [];
-      let lbList = [];
-      let visibleDataList = [];
 
+
+      let cbxList = [];
+      let lbListOn = [];
+      let lbListOff = [];
+
+      const button=tblHead.children[j].children[0].children[0];
+      let IsButtonfiltered=button.classList.value.includes("dropdown-filtered");
+      button.classList.remove("dropdown-filtered");
 
       // Loop en el dropdown para identificar checkboxes
       for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
-
-        //Se crea la columna con los datos
-        // for (let i = 0; i < tblBody.children.length; i++) {
-        //   const row = tblBody.children[i];
-        //   const data = row.children[j].innerHTML;
-        //   if (!(row.style.display=="none")) {
-        //     visibleDataList.push(data);
-        //   }
-        // }
-
-        let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
-        let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
-        // if (chbx == true && !visibleDataList.includes(label) && btn.ariaExpanded == "true") {
-        //   tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
-        //   chbx=false;
+        
+        // const row = tblBody.children[i];
+        // if (!(row.style.display == "") || row.style.display == "none") {
+        //   continue;
         // }
         
+        let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
+        let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
+
         if (chbx == true) {
           cbxList.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
-          lbList.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
+          lbListOn.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
+        }
+        else{
+          lbListOff.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
         }
       }
       
       for (let i = 0; i < tblBody.children.length; i++) {
-
+        let IsRowHidden=false;
         const row = tblBody.children[i];
+        //Para la primera columna prendemos todas las filas
+        if (j==0) {
+          row.style.display = "table-row";
+        }
+  
+        if (!(row.style.display == "") && !(row.style.display == "table-row")|| row.style.display == "none") {
+          IsRowHidden=true;
+          continue;
+        }
         let displayRow = true;
         const data = row.children[j].innerHTML;
         if (data == "null") {
           continue;
         }
-        if (!lbList.includes(data)) {
+        if (!lbListOn.includes(data)) {
           displayRow = false;
-          btn.classList.add("dropdown-filtered")
+          button.classList.add("dropdown-filtered")
           row.style.display = "none";
         }
-        // else {
+        // else if (!IsRowHidden){
         //   displayRow = true;
         //   row.style.display = "table-row";
         // }
       }
 
+      checkboxUpdate(event);
+
 
   }
 
-  checkboxUpdate(event);
+  
   
 }
 
