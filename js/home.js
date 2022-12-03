@@ -138,7 +138,9 @@ class ExcelPrinter {
         if (excel.rows().get(i)[0] == null) {
           break;
         }
+        
         let data = excel.rows().get(i)[j];
+
         if (columnData.includes(data)) {
           continue;
         }
@@ -183,8 +185,10 @@ class ExcelPrinter {
       for (let i = 0; i < 9; i++) {
         const row = excel.rows().get(j);
         const tblCell = document.createElement("td");
-        const cellText = row[i]==null?document.createTextNode(""):document.createTextNode(row[i]);
-
+        let cellText = row[i]==null?document.createTextNode(""):document.createTextNode(row[i]);
+        if (i==8) {
+          cellText = row[i]==null?document.createTextNode(""):document.createTextNode(row[i].toLocaleString("en-US",{maximumFractionDigits: 0}));
+        }
         tblCell.appendChild(cellText);
         tblRow.appendChild(tblCell);
       }
