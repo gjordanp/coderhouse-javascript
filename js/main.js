@@ -23,7 +23,7 @@ function formSubmit()
     //Revisamos coincidencia de usuario y password
     for (let i = 0; i < usuarios.length; i++) {
         const usuario = usuarios[i];
-        if (usuario.email==email&&usuario.password==pass) {
+        if (usuario.email==email && usuario.password==pass) {
             loginSuccess = true;
             break;
         }
@@ -57,7 +57,7 @@ function usuario(email,password){
 
 function registro(){
     emailR=prompt("Ingresa tu Email")
-    while(!emailR.includes("@") && !emailR.includes(".")){
+    while(!emailR.includes('@') || !emailR.includes('.')){
         alert("Revísa el formato del Email ejemplo: juan@mail.cl")
         emailR=prompt("Ingresa tu Email")
     }

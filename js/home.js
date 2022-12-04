@@ -141,6 +141,8 @@ class ExcelPrinter {
         
         let data = excel.rows().get(i)[j];
 
+        j==8?data=data.toLocaleString("en-US",{maximumFractionDigits: 0}):"";
+
         if (columnData.includes(data)) {
           continue;
         }
@@ -270,6 +272,7 @@ function checkboxUpdate(event){
       }
       else if(!chbx && visibleDataList.includes(label)){
         tblHead.children[j].children[0].children[1].children[i].children[0].checked=true;
+        tblHead.children[j].children[0].children[1].children[i].style.display="block";
       }
       
     }
@@ -303,11 +306,11 @@ function tableFilter(event) {
   const tblBody = table.querySelector("tbody");
  
   
-  //let j=getChildIndex(th)-3;
+  let j=getChildIndex(th)-3;
 
  
   //Loop en las filas
-    for (let j = 0; j < tblHead.children.length; j++) {
+    //for (let j = 0; j < tblHead.children.length; j++) {
 
 
       let cbxList = [];
@@ -369,7 +372,7 @@ function tableFilter(event) {
       checkboxUpdate(event);
 
 
-  }
+  //}
 
   
   
