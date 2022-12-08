@@ -120,7 +120,7 @@ class ExcelPrinter {
       //div.setAttribute("onclick", "e.stopPropagation()");
 
       const btn = document.createElement("button");
-      btn.setAttribute("class", "btn btn-dark dropdown-toggle");
+      btn.setAttribute("class", "btn btn-dark d-flex flex-row gap-1 align-items-center dropdown-toggle");
       btn.setAttribute("type", "button");
       btn.setAttribute("data-bs-toggle", "dropdown");
       btn.setAttribute("aria-expanded", "false");
@@ -318,8 +318,15 @@ function tableFilter(event) {
       let lbListOff = [];
 
       const button=tblHead.children[j].children[0].children[0];
-      let IsButtonfiltered=button.classList.value.includes("dropdown-filtered");
+      let IsButtonfiltered=button.childElementCount==1;
       button.classList.remove("dropdown-filtered");
+      if (!button.classList.value.includes("dropdown-toggle")) {
+        button.classList.add("dropdown-toggle");
+      }
+      if (IsButtonfiltered) {
+        button.removeChild(button.lastChild);
+      }
+      
 
       // Loop en el dropdown para identificar checkboxes
       for (let i = 0; i < tblHead.children[j].children[0].children[1].children.length; i++) {
@@ -360,6 +367,18 @@ function tableFilter(event) {
         }
         if (!lbListOn.includes(data)) {
           displayRow = false;
+          const icon = document.createElement("i");
+          icon.setAttribute("class", "bi bi-funnel-fill");
+          button.style.display="inline-block"
+          // button.getAttribute("class","dropdown-toggle")
+          // button.classList.toggle("")
+          //button.classList.getElementsByClassName("dropdown-toggle").style.visibility = "hidden";
+          //button.getAttribute("class","dropdown-toggle").style.display="none";
+          // tog.after(icon);
+          if(button.lastChild.nodeName=="#text"){
+            button.appendChild(icon);
+          }
+          button.classList.remove("dropdown-toggle");
           button.classList.add("dropdown-filtered")
           row.style.display = "none";
         }
