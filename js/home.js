@@ -116,7 +116,7 @@ class ExcelPrinter {
       const title = excel.header()[j];
 
       const div = document.createElement("div");
-      div.setAttribute("class", "dropdown");
+      div.setAttribute("class", "d-flex justify-content-center dropdown");
       //div.setAttribute("onclick", "e.stopPropagation()");
 
       const btn = document.createElement("button");
