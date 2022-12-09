@@ -172,7 +172,6 @@ class ExcelPrinter {
 
       div.appendChild(btn);
       div.appendChild(ul);
-
       const tblhead = document.createElement("th");
       tblhead.appendChild(div);
       table.querySelector("thead").appendChild(tblhead);
@@ -263,16 +262,22 @@ function checkboxUpdate(event){
 
       const button=tblHead.children[j].children[0].children[0];
       //if (!visibleDataList.includes(label) && !button.classList.value.includes("dropdown-filtered")) {
+      if (visibleDataList.includes(label)) {
+        tblHead.children[j].children[0].children[1].children[i].style.display="block";
+      }
+      
       if (chbx == true && !visibleDataList.includes(label)) {
-        tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
+        //tblHead.children[j].children[0].children[1].children[i].children[0].checked=false;
         if (!button.classList.value.includes("dropdown-filtered")) {
           tblHead.children[j].children[0].children[1].children[i].style.display="none";
         }
         
       }
       else if(!chbx && visibleDataList.includes(label)){
-        tblHead.children[j].children[0].children[1].children[i].children[0].checked=true;
-        tblHead.children[j].children[0].children[1].children[i].style.display="block";
+        //tblHead.children[j].children[0].children[1].children[i].children[0].checked=true;
+        if (!button.classList.value.includes("dropdown-filtered")) {
+          tblHead.children[j].children[0].children[1].children[i].style.display="block";
+        }
       }
       
     }
@@ -313,7 +318,8 @@ function tableFilter(event) {
     //for (let j = 0; j < tblHead.children.length; j++) {
 
 
-      let cbxList = [];
+      let cbxListOn = [];
+      let cbxListOff = [];
       let lbListOn = [];
       let lbListOff = [];
 
@@ -335,16 +341,20 @@ function tableFilter(event) {
         // if (!(row.style.display == "") || row.style.display == "none") {
         //   continue;
         // }
-        
+        const dropItem=tblHead.children[j].children[0].children[1].children[i];
+        if ( dropItem.style.display == "none") {
+          continue;
+        }
         let chbx = tblHead.children[j].children[0].children[1].children[i].children[0].checked;
         let label = tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML;
 
         if (chbx == true) {
-          cbxList.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
+          cbxListOn.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
           lbListOn.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
         }
         else{
           lbListOff.push(tblHead.children[j].children[0].children[1].children[i].children[1].innerHTML);
+          cbxListOff.push(tblHead.children[j].children[0].children[1].children[i].children[0].checked);
         }
       }
       
@@ -352,9 +362,9 @@ function tableFilter(event) {
         let IsRowHidden=false;
         const row = tblBody.children[i];
         //Para la primera columna prendemos todas las filas
-        if (j==0) {
+        //if (j==0) {
           row.style.display = "table-row";
-        }
+        //}
   
         if (!(row.style.display == "") && !(row.style.display == "table-row")|| row.style.display == "none") {
           IsRowHidden=true;
