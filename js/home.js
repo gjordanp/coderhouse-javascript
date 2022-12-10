@@ -411,7 +411,16 @@ function getChildIndex(node) {
   return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
+function navBarChange(e) {
+  const NavBarMobile = document.getElementById('navBarMobile')
+  const NavBarDesktop = document.getElementById('navBarMobile')
 
+  const btn = event.target;
+
+  if (condition) {
+    
+  }
+}
 //   console.log(window.location.href.split("/").pop());
 
 //   window.location.href.trimEnd(window.location.href.split("/").pop())

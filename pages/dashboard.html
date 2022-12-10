@@ -110,7 +110,7 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto fst-italic fw-semibold">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
+          <a href="./home.html" class="nav-link text-white" aria-current="page">
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#home" />
             </svg>
@@ -118,7 +118,7 @@
           </a>
         </li>
         <li>
-          <a href="./dashboard.html" class="nav-link text-white">
+          <a href="#" class="nav-link text-white active">
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#speedometer2" />
             </svg>
@@ -177,12 +177,12 @@
       </a>
       <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li class="nav-item">
-          <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="./home.html" class="nav-link link-light py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
             <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
           </a>
         </li>
         <li>
-          <a href="./dashboard.html" class="nav-link link-light py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="#" class="nav-link active link-light py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
             <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"/></svg>
           </a>
         </li>
@@ -216,28 +216,136 @@
       </div>
     </div>
 
-    <div class="col d-flex flex-column overflow-auto bg-dark scroll">
+    <div class="col d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2">
       
-        <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm" style="display: none;">
-        <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()">
-        <table class="table table-striped table-dark text-center" id="excel-table">
-          <thead>
-            <!-- <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr> -->
-          </thead>
-          <tbody>
-            <!-- <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr> -->
-          </tbody>
-        </table>
+      <!-- <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()"> -->
+      <select class="form-select my-3 w-50 align-self-center" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      
+      <h2 class="text-white">Proyecto</h2>
+      <div class="d-flex flex-row gap-4 flex-fill flex-wrap">
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">N° Proyecto</div>
+          <div class="card-body">
+            <h5 class="card-title">18001</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">Nombre</div>
+          <div class="card-body">
+            <h5 class="card-title">Edificio C</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+  
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">Inmobiliaria</div>
+          <div class="card-body">
+            <h5 class="card-title">Imagina</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">Superficie</div>
+          <div class="card-body">
+            <h5 class="card-title">2500 m2</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="d-flex flex-row gap-4 flex-fill flex-wrap">
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">N° Pisos</div>
+          <div class="card-body">
+            <h5 class="card-title">15</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">N° Subterraneos</div>
+          <div class="card-body">
+            <h5 class="card-title">3</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">Tipo Suelo</div>
+          <div class="card-body">
+            <h5 class="card-title">Suelo C</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+        <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+          <div class="card-header">Zona Sismica</div>
+          <div class="card-body">
+            <h5 class="card-title">Zona II</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <h2 class="text-white">Cubicación</h2>
+      <div class="d-flex flex-row  gap-4 flex-fill flex-wrap">
+
+          <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+            <div class="card-header">Hormigón</div>
+            <div class="card-body">
+              <h5 class="card-title">2400 m3</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+          <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+            <div class="card-header">Acero</div>
+            <div class="card-body">
+              <h5 class="card-title">450,000 Kg</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+          <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+            <div class="card-header">Moldaje</div>
+            <div class="card-body">
+              <h5 class="card-title">25,000 m2</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+          <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+            <div class="card-header">Cuantía Volumen</div>
+            <div class="card-body">
+              <h5 class="card-title">98.1 Kg/m3</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+          <div class="card text-white mb-3 flex-fill" style="max-width: auto; background-color: rgb(26, 29, 32);">
+            <div class="card-header">Cuantía Superficie</div>
+            <div class="card-body">
+              <h5 class="card-title">30.4 Kg/m2</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+      </div>
+      
+        
+
 
     </div>
 
