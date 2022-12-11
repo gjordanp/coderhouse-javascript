@@ -217,43 +217,66 @@
       </div>
     </div>
 
-    <div class="col d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
+    <div class="col container-fluid d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
       
       <!-- <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()"> -->
-      <select class="form-select my-2  align-self-center" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-      
-      <h2 class="text-white">Proyecto</h2>
-      <div class="d-flex flex-row gap-2 gap-sm-3 flex-fill flex-wrap">
-
-        <div class="card card-shadow bg-dark text-white flex-fill p-3 w-25">
-          <canvas id="myChart1"></canvas>
-        </div>
-
-        <div class="card card-shadow bg-dark text-white flex-fill p-3 w-25">
-          <canvas id="myChart2"></canvas>
-        </div>
-  
-        
+      <div class="row">
+        <select class="form-select my-2  align-self-center" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="row">
+        <h2 class="text-white mt-3">Proyecto</h2>
+      </div>
+      <div class="row g-2 g-sm-3" >
+          <div class="col col-sm-6">
+            <div class="chart-container card card-shadow bg-dark text-white p-3 w-sm-100" style="height: 40vh;">
+              <canvas id="myChart1"></canvas>
+            </div>
+          </div>
+          <div class="col col-sm-6">
+            <div class="chart-container card card-shadow bg-dark text-white p-3" style="height: 40vh;">
+              <canvas id="myChart3"></canvas>
+            </div>
+          </div>
       </div>
 
 
-
-      <h2 class="text-white mt-3">Cubicación</h2>
-      <div class="d-flex flex-row  gap-2 gap-sm-3 flex-fill flex-wrap">
-
-          <div class="card card-shadow  bg-dark text-white flex-fill p-3 w-25">
-            <canvas id="myChart3"></canvas>
-          </div>
-          <div class="card card-shadow bg-dark text-white flex-fill p-3 w-25">
+      <div class="row">
+        <h2 class="text-white mt-3">Cubicación</h2>
+      </div>
+      <div class="row g-2 g-sm-3">
+        <div class="col-6 col-sm-3">
+          <div class="chart-container card card-shadow bg-dark text-white p-3" style="height: 30vh;">
             <canvas id="myChart4"></canvas>
           </div>
-
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="chart-container card card-shadow bg-dark text-white p-3" style="height: 30vh;">
+            <canvas id="myChart5"></canvas>
+          </div>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="chart-container card card-shadow bg-dark text-white p-3" style="height: 30vh;">
+            <canvas id="myChart6"></canvas>
+          </div>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="chart-container card card-shadow bg-dark text-white p-3" style="height: 30vh;">
+            <canvas id="myChart2"></canvas>
+          </div>
+        </div>
       </div>
+
+      
+
+
+
+
+
       
         
 
