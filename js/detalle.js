@@ -10,8 +10,14 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 // Real Viewport Height---------------------------------------------------------------------------
+let bootstrapDark= 'rgb(33, 37, 41, 1)';
+let donutBordeColor='rgba(180,180,180,0)';
 
 const ctx = document.getElementById('myChart1');
+let gradient = ctx.getContext("2d").createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, 'rgba(0,60,100,0.5)');   
+gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
+
 
   new Chart(ctx, {
     type: 'bar',
@@ -20,7 +26,10 @@ const ctx = document.getElementById('myChart1');
       datasets: [{
         label: 'Kg de Acero',
         data: [12, 19, 3, 5, 2, 3],
+        borderColor:'rgba(0,100,180,1)',
+        backgroundColor: gradient,
         borderWidth: 1
+        
       }]
     },
     options: {
@@ -44,7 +53,9 @@ const ctx = document.getElementById('myChart1');
       datasets: [{
         label: '# of Votes',
         data: [12, 19, 3, 5, 2, 3],
+        borderColor:'rgba(0,100,180,1)',
         borderWidth: 1
+
       }]
     },
     options: {
@@ -63,6 +74,7 @@ const ctx = document.getElementById('myChart1');
   const ctx5 = document.getElementById('myChart5');
   const ctx6 = document.getElementById('myChart6');
 
+
   const data = {
     labels: [
       'Red',
@@ -72,6 +84,8 @@ const ctx = document.getElementById('myChart1');
     datasets: [{
       label: 'My First Dataset',
       data: [300, 50, 100],
+      borderColor:bootstrapDark,
+      borderWidth: 5,
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
@@ -90,6 +104,8 @@ const ctx = document.getElementById('myChart1');
     datasets: [{
       label: 'My First Dataset',
       data: [300, 50, 100],
+      borderColor:bootstrapDark,
+      borderWidth: 5,
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
