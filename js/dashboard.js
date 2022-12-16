@@ -456,14 +456,23 @@ function proyectListLoad() {
 
 function proyectListChange(){
   const proyectSelector=document.getElementById("proyectselector");
-  const selectedProyect=Proyectos.find(e=>e.Codigo=proyectSelector.value);
+  const selectedProyect=Proyectos.find(e=>e.Codigo==proyectSelector.value);
+  const ceroDecimal={maximumFractionDigits: 0};
+  const dosDecimal={maximumFractionDigits: 2};
   
   document.querySelector('#card_Codigo > .card-body > .card-title').innerText=selectedProyect['Codigo'];
-  document.querySelector('#card_Proyecto> .card-body > .card-title').innerHTML=selectedProyect['Proyecto'];
-  document.querySelector('#card_Inmobiliaria > .card-body > .card-title').innerHTML=selectedProyect['Inmobiliaria'];
-  document.querySelector('#card_Superficie > .card-body > .card-title').innerHTML=selectedProyect['Superficie m2'];;
-
-
+  document.querySelector('#card_Proyecto> .card-body > .card-title').innerText=selectedProyect['Proyecto'];
+  document.querySelector('#card_Inmobiliaria > .card-body > .card-title').innerText=selectedProyect['Inmobiliaria'];
+  document.querySelector('#card_Superficie > .card-body > .card-title').innerText=selectedProyect['Superficie m2'].toLocaleString("en-US",ceroDecimal) + " m2";
+  document.querySelector('#card_Pisos > .card-body > .card-title').innerText=selectedProyect['Pisos'];
+  document.querySelector('#card_Subs > .card-body > .card-title').innerText=selectedProyect['Subt.'];
+  document.querySelector('#card_Suelo > .card-body > .card-title').innerText="Suelo "+selectedProyect['T.S'];
+  document.querySelector('#card_Zona > .card-body > .card-title').innerText="Zona "+selectedProyect['Z.S'];
+  document.querySelector('#card_Hormigon > .card-body > .card-title').innerText=selectedProyect['HA (m3)'].toLocaleString("en-US",ceroDecimal)+ " m3";
+  document.querySelector('#card_Acero > .card-body > .card-title').innerText=selectedProyect['Fe (kg)'].toLocaleString("en-US",ceroDecimal) + " Kg";
+  document.querySelector('#card_Moldaje> .card-body > .card-title').innerText=selectedProyect['MLD (m2)'].toLocaleString("en-US",ceroDecimal) + " m2";
+  document.querySelector('#card_CuantiaV> .card-body > .card-title').innerText=selectedProyect['Fe/HA (kg/m3)'].toLocaleString("en-US",dosDecimal)+ " Kg/m3";
+  document.querySelector('#card_CuantiaS > .card-body > .card-title').innerText=selectedProyect['Fe/Sup (kg/m2)'].toLocaleString("en-US",dosDecimal) + " Kg/m2";
 }
 
 
