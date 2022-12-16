@@ -154,3 +154,87 @@ gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
       }
       
   });
+
+
+  class Proyecto {
+    constructor(ha,fe,mld){
+        this.ha=ha;
+        this.fe=fe;
+        this.mld=mld;
+    }
+  }
+
+  class Excel {
+    constructor(content) {
+      this.content = content;
+    }
+  
+    type() {
+      return this.content[0];
+    }
+  
+    header() {
+      return this.content[1];
+    }
+  
+    rows() {
+      return new RowCollection(this.content.slice(2, this.content.length));
+    }
+  
+  }
+  
+  class RowCollection {
+    constructor(rows) {
+      this.rows = rows;
+    }
+  
+    first() {
+      return new Row(this.rows[0]);
+    }
+    get(index) {
+      return this.rows[index];
+    }
+    count() {
+      return this.rows.length;
+    }
+  
+  }
+  
+  class Row {
+    constructor(row) {
+      this.row = row;
+    }
+  
+    name() {
+      return this.row[0];
+    }
+    get() {
+      return this.row;
+    }
+    elementAt(index) {
+      return this.row[index];
+    }
+    count() {
+      return this.row.length;
+    }
+  }
+  
+  
+  
+
+
+
+
+  
+  // Leer excel desde ruta en archivos 
+  // Blob.
+  const excelInput = document.getElementById('cbcExcel')
+  fetch(excelInput.src)
+    .then(response => response.blob())
+    .then(blob => readXlsxFile(blob))
+    .then((rows) => {
+      console.table(rows);
+      const content = rows;
+      const excel = new Excel(content)
+      //ExcelPrinter.print("excel-table", excel);
+    })

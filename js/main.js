@@ -56,6 +56,7 @@ function usuario(email,password){
 
 
 function registro(){
+    const regex=/^([\S\d]+)@(\S+)[.](\S+.?\S+)$/;
     emailR=prompt("Ingresa tu Email")
     while(!emailR.includes('@') || !emailR.includes('.')){
         alert("Revísa el formato del Email ejemplo: juan@mail.cl")

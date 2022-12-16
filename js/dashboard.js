@@ -123,8 +123,8 @@ fetch(excelInput.src)
         Proyectos.push(new Proyecto(excel.rows().get(i),excel.header()))
       }
     }
-
-    ExcelPrinter.print("excel-table", excel);
+    proyectListLoad();
+    //ExcelPrinter.print("excel-table", excel);
   })
 
 
@@ -442,6 +442,31 @@ function navBarChange(e) {
     
   }
 }
+
+function proyectListLoad() {
+  const proyectSelector=document.getElementById("proyectselector")
+  Proyectos.sort((a,b)=>a.Codigo-b.Codigo);
+  Proyectos.forEach(proyecto=>{
+    const op=document.createElement('option');
+    op.value=proyecto.Codigo;
+    op.innerHTML=proyecto.Codigo + " - " + proyecto.Proyecto;
+    proyectSelector.appendChild(op);
+  });
+}
+
+function proyectListChange(){
+  const proyectSelector=document.getElementById("proyectselector");
+  const selectedProyect=Proyectos.find(e=>e.Codigo=proyectSelector.value);
+  
+  document.querySelector('#card_Codigo > .card-body > .card-title').innerText=selectedProyect['Codigo'];
+  document.querySelector('#card_Proyecto> .card-body > .card-title').innerHTML=selectedProyect['Proyecto'];
+  document.querySelector('#card_Inmobiliaria > .card-body > .card-title').innerHTML=selectedProyect['Inmobiliaria'];
+  document.querySelector('#card_Superficie > .card-body > .card-title').innerHTML=selectedProyect['Superficie m2'];;
+
+
+}
+
+
 //   console.log(window.location.href.split("/").pop());
 
 //   window.location.href.trimEnd(window.location.href.split("/").pop())

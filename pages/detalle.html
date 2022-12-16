@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="Gabriel Jordan">
-  <title>Cubicaciones Historicas</title>
+  <title>Cubicaciones Detalle</title>
 
   <!-- CSS only -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -102,6 +102,8 @@
     <!-- <button class="btn btn-secondary m-2 position-absolute rounded-circle bg-dark">
       <i class="bi bi-list" style="font-size: 1.5rem;"></i>
     </button> -->
+    <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm" style="display: none;">
+    
     <h1 class="visually-hidden">Sidebars examples</h1>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark d-none d-sm-inline" style="width: 280px; height: 100vh;" id="navBarDesktop">
       <a href="https://www.btd.cl" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -217,11 +219,9 @@
       </div>
     </div>
 
-    <div class="col container-fluid d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
-      
-      <!-- <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()"> -->
-      <div class="row">
-        <select class="form-select my-2  align-self-center" aria-label="Default select example">
+    <div class="container-fluid overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
+      <div class="row m-0">
+        <select class="form-select" aria-label="Default select example">
           <option selected>Open this select menu</option>
           <option value="1">One</option>
           <option value="2">Two</option>

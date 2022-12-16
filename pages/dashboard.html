@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="Gabriel Jordan">
-  <title>Cubicaciones Historicas</title>
+  <title>Cubicaciones Resumen</title>
 
   <!-- CSS only -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -217,19 +217,16 @@
     </div>
 
     <div class="col d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
-      
+      <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm" style="display: none;">
       <!-- <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()"> -->
-      <select class="form-select my-2  align-self-center" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+      <select class="form-select my-2  align-self-center" aria-label="Default select example" id="proyectselector"  onchange="proyectListChange()">
+        <option selected>Selecciona un Proyecto</option>
       </select>
       
       <h2 class="text-white">Proyecto</h2>
       <div class="d-flex flex-row gap-2 gap-sm-3 flex-fill flex-wrap">
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Codigo">
           <div class="card-header">N° Proyecto</div>
           <div class="card-body">
             <h5 class="card-title">18001</h5>
@@ -237,7 +234,7 @@
           </div>
         </div>
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Proyecto">
           <div class="card-header">Nombre</div>
           <div class="card-body">
             <h5 class="card-title">Edificio C</h5>
@@ -245,7 +242,7 @@
           </div>
         </div>
   
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Inmobiliaria">
           <div class="card-header">Inmobiliaria</div>
           <div class="card-body">
             <h5 class="card-title">Imagina</h5>
@@ -253,7 +250,7 @@
           </div>
         </div>
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Superficie">
           <div class="card-header">Superficie</div>
           <div class="card-body">
             <h5 class="card-title">2500 m2</h5>
@@ -265,7 +262,7 @@
 
       <div class="d-flex flex-row gap-2 gap-sm-3 flex-fill flex-wrap">
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Pisos">
           <div class="card-header">N° Pisos</div>
           <div class="card-body">
             <h5 class="card-title">15</h5>
@@ -273,7 +270,7 @@
           </div>
         </div>
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Subs">
           <div class="card-header">N° Subterraneos</div>
           <div class="card-body">
             <h5 class="card-title">3</h5>
@@ -281,7 +278,7 @@
           </div>
         </div>
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Suelo">
           <div class="card-header">Tipo Suelo</div>
           <div class="card-body">
             <h5 class="card-title">Suelo C</h5>
@@ -289,7 +286,7 @@
           </div>
         </div>
 
-        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+        <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Zona">
           <div class="card-header">Zona Sismica</div>
           <div class="card-body">
             <h5 class="card-title">Zona II</h5>
@@ -302,7 +299,7 @@
       <h2 class="text-white mt-3">Cubicación</h2>
       <div class="d-flex flex-row  gap-2 gap-sm-3 flex-fill flex-wrap">
 
-          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Hormigon">
             <div class="card-header">Hormigón</div>
             <div class="card-body">
               <h5 class="card-title">2400 m3</h5>
@@ -310,7 +307,7 @@
             </div>
           </div>
 
-          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Acero">
             <div class="card-header">Acero</div>
             <div class="card-body">
               <h5 class="card-title">450,000 Kg</h5>
@@ -318,7 +315,7 @@
             </div>
           </div>
 
-          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_Moldaje">
             <div class="card-header">Moldaje</div>
             <div class="card-body">
               <h5 class="card-title">25,000 m2</h5>
@@ -326,7 +323,7 @@
             </div>
           </div>
 
-          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_CuantiaV">
             <div class="card-header">Cuantía Volumen</div>
             <div class="card-body">
               <h5 class="card-title">98.1 Kg/m3</h5>
@@ -334,7 +331,7 @@
             </div>
           </div>
 
-          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;">
+          <div class="card card-shadow bg-dark text-white flex-fill" style="max-width: auto;" id="card_CuantiaS">
             <div class="card-header">Cuantía Superficie</div>
             <div class="card-body">
               <h5 class="card-title">30.4 Kg/m2</h5>
@@ -356,7 +353,7 @@
 
   <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
   <script src="../js/bootstrap.bundle.min.js"></script>
-  <script src="../js/home.js"></script>
+  <script src="../js/dashboard.js"></script>
   
   
 
