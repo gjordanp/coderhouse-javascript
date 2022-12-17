@@ -77,7 +77,7 @@ const excelInput = document.getElementById('cbcExcel')
 // Leer excel desde ruta en archivos 
 fetch(excelInput.src)
   .then(response => response.blob())
-  .then(blob => readXlsxFile(blob))
+  .then(blob => readXlsxFile(blob,{sheet:1}))
   .then((rows) => {
     console.log(rows);
     const content = rows;
