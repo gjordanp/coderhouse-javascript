@@ -38,28 +38,17 @@ class Excel {
   constructor(content) {
     this.content = content;
   }
-
-  type() {
+  header() {
     return this.content[0];
   }
-
-  header() {
-    return this.content[1];
-  }
-
   rows() {
-    return new RowCollection(this.content.slice(2, this.content.length));
+    return new RowCollection(this.content.slice(1, this.content.length));
   }
-
 }
 
 class RowCollection {
   constructor(rows) {
     this.rows = rows;
-  }
-
-  first() {
-    return new Row(this.rows[0]);
   }
   get(index) {
     return this.rows[index];
@@ -67,19 +56,11 @@ class RowCollection {
   count() {
     return this.rows.length;
   }
-
 }
 
 class Row {
   constructor(row) {
     this.row = row;
-  }
-
-  name() {
-    return this.row[0];
-  }
-  get() {
-    return this.row;
   }
   elementAt(index) {
     return this.row[index];
@@ -100,11 +81,6 @@ excelInput.addEventListener('change', async function () {
   const excel = new Excel(content);
   header = excel.header();
   ExcelPrinter.print("excel-table", excel);
-  // console.log(excel.header());
-  // console.log(excel.type());
-  // console.log(excel.rows().first());
-  // console.log(excel.rows().get());
-  // console.log(excel.rows().count());
 })
 
 
@@ -123,7 +99,6 @@ fetch(excelInput.src)
         Proyectos.push(new Proyecto(excel.rows().get(i),excel.header()))
       }
     }
-
     ExcelPrinter.print("excel-table", excel);
   })
 
@@ -159,8 +134,7 @@ class ExcelPrinter {
         if (excel.rows().get(i)[0] == null) {
           break;
         }
-        
-        let data = excel.rows().get(i)[j];
+        let data= excel.rows().get(i)[j];
 
         j==8?data=data.toLocaleString("en-US",{maximumFractionDigits: 0}):"";
 
@@ -170,8 +144,6 @@ class ExcelPrinter {
         else {
           columnData.push(data);
         }
-
-
 
         const li = document.createElement("li");
         li.setAttribute("class", "dropdown-item");
@@ -221,8 +193,6 @@ class ExcelPrinter {
 }
 
 function tableSearch() {
-
-
   let searchTxt = document.getElementById('searchInput').value;
   let table = document.getElementById('excel-table')
   const tblBody = table.querySelector("tbody");

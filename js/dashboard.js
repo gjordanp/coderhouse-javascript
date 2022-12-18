@@ -39,10 +39,10 @@ class Excel {
     this.content = content;
   }
   header() {
-    return this.content[1];
+    return this.content[0];
   }
   rows() {
-    return new RowCollection(this.content.slice(2, this.content.length));
+    return new RowCollection(this.content.slice(1, this.content.length));
   }
 }
 
