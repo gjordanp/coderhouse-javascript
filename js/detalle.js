@@ -156,85 +156,97 @@ gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
   });
 
 
-  class Proyecto {
-    constructor(ha,fe,mld){
-        this.ha=ha;
-        this.fe=fe;
-        this.mld=mld;
-    }
-  }
+ //Variables
+const Proyectos=[];
 
-  class Excel {
-    constructor(content) {
-      this.content = content;
-    }
-  
-    type() {
-      return this.content[0];
-    }
-  
-    header() {
-      return this.content[1];
-    }
-  
-    rows() {
-      return new RowCollection(this.content.slice(2, this.content.length));
-    }
-  
-  }
-  
-  class RowCollection {
-    constructor(rows) {
-      this.rows = rows;
-    }
-  
-    first() {
-      return new Row(this.rows[0]);
-    }
-    get(index) {
-      return this.rows[index];
-    }
-    count() {
-      return this.rows.length;
-    }
-  
-  }
-  
-  class Row {
-    constructor(row) {
-      this.row = row;
-    }
-  
-    name() {
-      return this.row[0];
-    }
-    get() {
-      return this.row;
-    }
-    elementAt(index) {
-      return this.row[index];
-    }
-    count() {
-      return this.row.length;
-    }
-  }
-  
-  
-  
+/* global bootstrap: false */
+(() => {
+  'use strict'
+  const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.forEach(tooltipTriggerEl => {
+    new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+})()
 
 
 
-
-  
-  // Leer excel desde ruta en archivos 
-  // Blob.
-  const excelInput = document.getElementById('cbcExcel')
-  fetch(excelInput.src)
-    .then(response => response.blob())
-    .then(blob => readXlsxFile(blob))
-    .then((rows) => {
-      console.table(rows);
-      const content = rows;
-      const excel = new Excel(content)
-      //ExcelPrinter.print("excel-table", excel);
+class Proyecto{
+  constructor(row,header){
+    header.forEach(el=>{
+      let index = header.indexOf(el);
+      this[el]=row[index];
     })
+  }
+}
+
+
+class Excel {
+  constructor(content) {
+    this.content = content;
+  }
+  header() {
+    return this.content[0];
+  }
+  rows() {
+    return new RowCollection(this.content.slice(1, this.content.length));
+  }
+}
+
+class RowCollection {
+  constructor(rows) {
+    this.rows = rows;
+  }
+  get(index) {
+    return this.rows[index];
+  }
+  count() {
+    return this.rows.length;
+  }
+}
+
+class Row {
+  constructor(row) {
+    this.row = row;
+  }
+  get() {
+    return this.row;
+  }
+  elementAt(index) {
+    return this.row[index];
+  }
+}
+
+
+// Leer excel desde input
+const excelInput = document.getElementById('cbcExcel')
+// Leer excel desde ruta en archivos 
+fetch(excelInput.src)
+  .then(response => response.blob())
+  .then(blob => readXlsxFile(blob,{sheet:1}))
+  .then((rows) => {
+    console.log(rows);
+    const content = rows;
+    const excel = new Excel(content)
+    
+    for (let i = 0; i < excel.rows().count(); i++) {
+      if (excel.rows().get(i)[0]!=null) {
+        Proyectos.push(new Proyecto(excel.rows().get(i),excel.header()))
+      }
+    }
+    proyectListLoad();
+  })
+
+
+
+
+//Carga los proyectos en la lista
+function proyectListLoad() {
+  const proyectSelector=document.getElementById("proyectselector")
+  Proyectos.sort((a,b)=>a.Codigo-b.Codigo);
+  Proyectos.forEach(proyecto=>{
+    const op=document.createElement('option');
+    op.value=proyecto.Codigo;
+    op.innerHTML=proyecto.Codigo + " - " + proyecto.Proyecto;
+    proyectSelector.appendChild(op);
+  });
+}

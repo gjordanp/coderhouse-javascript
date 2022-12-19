@@ -73,7 +73,6 @@ class Row {
 
 // Leer excel desde input
 const excelInput = document.getElementById('cbcExcel')
-
 // Leer excel desde ruta en archivos 
 fetch(excelInput.src)
   .then(response => response.blob())
