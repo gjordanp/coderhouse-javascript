@@ -102,10 +102,10 @@
       <i class="bi bi-list" style="font-size: 1.5rem;"></i>
     </button> -->
     <h1 class="visually-hidden">Sidebars examples</h1>
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark d-none d-sm-inline" style="width: 280px; height: 100vh;" id="navBarDesktop">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark d-none d-sm-inline shadow" style="width: 280px; " id="navBarDesktop">
       <a href="https://www.btd.cl" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <i class="bi bi-list mx-2" style="font-size: 1.5rem;"></i>
-        <span class="fs-4 mx-2 fst-italic fw-semibold">CUBICA</span>
+        <!-- <i class="bi bi-list mx-2" style="font-size: 1.5rem;"></i> -->
+        <span class="fs-4 mx-2 fst-italic fw-semibold">BTD CUBICA</span>
       </a>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto fst-italic fw-semibold">
@@ -169,13 +169,13 @@
       </div>
     </div>
 
-    <a class="d-block p-0 link-light text-decoration-none position-absolute" data-bs-toggle="collapse" href="#navBarMobile" role="button" aria-expanded="false" aria-controls="navBarMobile">
+    <a class="d-block d-sm-none p-0 m-2 link-light text-decoration-none position-absolute" data-bs-toggle="collapse" href="#navBarMobile" role="button" aria-expanded="false" aria-controls="navBarMobile">
       <button type="button" class="btn btn-dark" >
         <i class="bi bi-list" style="font-size: 2rem;"></i>
       </button>
     </a>
     
-    <div class="d-flex flex-column flex-shrink-0 bg-dark d-sm-none justify-content-center align-items-center offcanvas offcanvas-start" style="width: auto;" id="navBarMobile">
+    <div class="d-flex flex-column flex-shrink-0 bg-dark d-sm-none justify-content-center align-items-center offcanvas offcanvas-start card-shadow" style="width: auto;" id="navBarMobile">
 
       <ul class="nav nav-pills nav-flush flex-column mb-auto text-center ">
         <li class="nav-item">
@@ -221,7 +221,7 @@
     <div class="col d-flex flex-column overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
       <input type="file" name="cbc" id="cbcExcel" src="../database/cubicaciones.xlsm" style="display: none;">
       <!-- <input class="form-control my-3 w-50 align-self-center" id="searchInput" type="text" placeholder="Buscar" aria-label="default input example" onkeyup="tableSearch()"> -->
-      <select class="form-select my-2  align-self-center" aria-label="Default select example" id="proyectselector"  onchange="proyectListChange()">
+      <select class="form-select my-2 w-75 ms-4 align-self-center" aria-label="Default select example" id="proyectselector"  onchange="proyectListChange()">
         <option selected>Selecciona un Proyecto</option>
       </select>
       
