@@ -228,15 +228,20 @@
     </div>
 
     <div class="container-fluid overflow-auto bg-dark scroll p-3 gap-2 gap-sm-3">
-      <div class="row m-0 p-0 d-flex flex-row justify-content-between">
-        <a class="d-block d-sm-none link-light text-decoration-none m-0 p-0" style="width: auto;"  data-bs-toggle="collapse" href="#navBarMobile" role="button" aria-expanded="false" aria-controls="navBarMobile">
-          <button type="button" class="btn btn-dark btn-sm" >
-            <i class="bi bi-list" style="font-size: 2rem;"></i>
-          </button>
-        </a>
-        <select class="form-select align-self-center" style="width: 80%;" aria-label="Default select example" id="proyectselector">
-          <option selected>Selecciona un Proyecto</option>
-        </select>
+      <div class="row">
+        <div class="col-2">
+          <a class="d-block d-sm-none link-light text-decoration-none"  data-bs-toggle="collapse" href="#navBarMobile" role="button" aria-expanded="false" aria-controls="navBarMobile">
+            <button type="button" class="btn btn-dark btn-sm" >
+              <i class="bi bi-list" style="font-size: 2rem;"></i>
+            </button>
+          </a>
+        </div>
+        <div class="col-8 align-self-center">
+          <select class="form-select " aria-label="Default select example" id="proyectselector">
+            <option selected>Selecciona un Proyecto</option>
+          </select>
+        </div>
+
       </div>
       <div class="row">
         <h2 class="text-white mt-3">Proyecto</h2>
