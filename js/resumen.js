@@ -88,7 +88,8 @@ fetch(excelInput.src)
       }
     }
     proyectListLoad();
-  })
+  }
+)
 
 
 
