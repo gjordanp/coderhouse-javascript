@@ -203,7 +203,7 @@ function tableSearch() {
     //Recorremos los datos de cada fila
     for (let j = 0; j < row.children.length; j++) {
       const data = row.children[j].innerHTML;
-      if (data.toLowerCase().includes(searchTxt)) {
+      if (data.toLowerCase().includes(searchTxt.toLowerCase())) {
         keepRow = true;
         break;
       }
