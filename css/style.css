@@ -65,3 +65,7 @@
 .card-transition{
     transition: all 1s ease;
 }
+
+.bg{
+    background-color: rgb(38, 45, 54);
+}

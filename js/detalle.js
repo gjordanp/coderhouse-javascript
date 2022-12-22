@@ -10,7 +10,7 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 // Real Viewport Height---------------------------------------------------------------------------
-let bootstrapDark= 'rgb(33, 37, 41, 1)';
+let bootstrapDark= 'rgb(38, 45, 54, 1)';
 let donutBordeColor='rgba(180,180,180,0)';
 
 const ctx = document.getElementById('myChart1');
