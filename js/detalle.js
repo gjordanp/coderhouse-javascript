@@ -13,42 +13,88 @@ window.addEventListener('resize', () => {
 let bootstrapDark= 'rgb(38, 45, 54, 1)';
 let donutBordeColor='rgba(180,180,180,0)';
 
-const ctx = document.getElementById('myChart1');
-let gradient = ctx.getContext("2d").createLinearGradient(0, 0, 0, 400);
+//DOM div para chart
+const ctx1 = document.getElementById('myChart1');
+const ctx2 = document.getElementById('myChart2');
+const ctx3 = document.getElementById('myChart3');
+const ctx4 = document.getElementById('myChart4');
+const ctx5 = document.getElementById('myChart5');
+const ctx6 = document.getElementById('myChart6');
+
+let gradient = ctx1.getContext("2d").createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, 'rgba(0,60,100,0.5)');   
 gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
 
-const data0 = {
-  labels: ['Muros', 'Perimetral', 'Vigas', 'Losas', 'Escalera'],
+let labeldefault=['Escalera','Fund', 'Perimetral', 'Vigas', 'Losas' ,'Muros'];
+let datadefault=[4, 8, 12, 20, 28, 30];
+
+
+//ChartAceroBarras
+const dataSteelBar = {
+  labels: labeldefault,
   datasets: [{
     label: 'Kg de Acero',
-    data: [12, 19, 3, 5, 2, 3],
+    data: datadefault,
     borderColor:'rgba(0,100,180,1)',
     backgroundColor: gradient,
     borderWidth: 1
-    
   }]
 };
 
+ const chartSteelBar = new Chart(ctx1, {
+    type: 'bar',
+    data: dataSteelBar,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
-  // new Chart(ctx, {
-  //   type: 'bar',
-  //   data: data0,
-  //   options: {
-  //       responsive: true,
-  //       maintainAspectRatio: false,
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true
-  //       }
-  //     }
-  //   }
-  // });
+  //Chart Acero Donut
+  const dataSteelDonut = {
+    labels: labeldefault,
+    datasets: [{
+      label: 'My First Dataset',
+      data: datadefault,
+      borderColor:bootstrapDark,
+      borderWidth: 5,
+      backgroundColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(255, 205, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(201, 203, 207, 1)'
+      ],
+      hoverOffset: 15
+    }]
+  };
 
+  const chartSteelDonut=new Chart(ctx3, {
+    type: 'doughnut',
+    data: dataSteelDonut,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: true,
+          position: "right",
+          align: "start"
+      }
+      }
+      
+  });
   
-  const ctx2 = document.getElementById('myChart2');
 
-  new Chart(ctx2, {
+
+
+  const chart2=new Chart(ctx2, {
     type: 'bar',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -70,38 +116,13 @@ const data0 = {
       }
     }
   });
-
-  const ctx3 = document.getElementById('myChart3');
-  const ctx4 = document.getElementById('myChart4');
-  const ctx5 = document.getElementById('myChart5');
-  const ctx6 = document.getElementById('myChart6');
+  
 
 
-  const data = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow'
-    ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
-      borderColor:bootstrapDark,
-      borderWidth: 5,
-      backgroundColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(255, 205, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(201, 203, 207, 1)'
-      ],
-      hoverOffset: 15
-    }]
-  };
 
-  const data2 = {
+
+
+let data2 = {
     labels: [
       'Armadura',
       'Punta',
@@ -123,7 +144,9 @@ const data0 = {
 
 
 
-  new Chart(ctx4, {
+
+
+  const chart4 = new Chart(ctx4, {
     type: 'doughnut',
     data: data2,
     options: {
@@ -304,37 +327,31 @@ function proyectSelectorChange(){
     }
   })
 
-
-  data0.labels=labels;
-  data0.datasets[0].data=labeldata;
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: data0,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
+  dataSteelBar.labels=labels;
+  dataSteelBar.datasets[0].data=labeldata;
+  chartSteelBar.update();
 
 
   const labeldatapercent=labeldata.map(el=> Math.round(el/labeldata.reduce((a,b)=>a+b)*100*10)/10);
-  data.labels=labels;
-  data.datasets[0].data=labeldatapercent;
-  new Chart(ctx3, {
-    type: 'doughnut',
-    data: data,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-      
+  dataSteelDonut.labels=labels;
+  dataSteelDonut.datasets[0].data=labeldatapercent;
+  chartSteelDonut.update();
+
+}
+
+
+function addData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(data);
   });
+  chart.update();
+}
+
+function removeData(chart) {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+  });
+  chart.update();
 }
