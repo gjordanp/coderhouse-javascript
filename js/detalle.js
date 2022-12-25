@@ -10,8 +10,8 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 // Real Viewport Height---------------------------------------------------------------------------
-let bootstrapDark= 'rgb(38, 45, 54, 1)';
-let donutBordeColor='rgba(180,180,180,0)';
+let bootstrapDark = 'rgb(38, 45, 54, 1)';
+let donutBordeColor = 'rgba(180,180,180,0)';
 
 //DOM div para chart
 const ctx1 = document.getElementById('myChart1');
@@ -22,165 +22,224 @@ const ctx5 = document.getElementById('myChart5');
 const ctx6 = document.getElementById('myChart6');
 
 let gradient = ctx1.getContext("2d").createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, 'rgba(0,60,100,0.5)');   
+gradient.addColorStop(0, 'rgba(0,60,100,0.5)');
 gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
 
-let labeldefault=['Escalera','Fund', 'Perimetral', 'Vigas', 'Losas' ,'Muros'];
-let datadefault=[4, 8, 12, 20, 28, 30];
+let labeldefault = ['Escalera', 'Fund', 'Perimetral', 'Vigas', 'Losas', 'Muros'];
+let datadefault = [4, 8, 12, 20, 28, 30];
 
 
 //ChartAceroBarras
 const dataSteelBar = {
   labels: labeldefault,
   datasets: [{
-    label: 'Kg de Acero',
+    label: 'Acero',
     data: datadefault,
-    borderColor:'rgba(0,100,180,1)',
+    borderColor: 'rgba(0,100,180,1)',
     backgroundColor: gradient,
     borderWidth: 1
   }]
+
 };
 
- const chartSteelBar = new Chart(ctx1, {
-    type: 'bar',
-    data: dataSteelBar,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
-  //Chart Acero Donut
-  const dataSteelDonut = {
-    labels: labeldefault,
-    datasets: [{
-      label: 'My First Dataset',
-      data: datadefault,
-      borderColor:bootstrapDark,
-      borderWidth: 5,
-      backgroundColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(255, 205, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(201, 203, 207, 1)'
-      ],
-      hoverOffset: 15
-    }]
-  };
-
-  const chartSteelDonut=new Chart(ctx3, {
-    type: 'doughnut',
-    data: dataSteelDonut,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
+const chartSteelBar = new Chart(ctx1, {
+  type: 'bar',
+  data: dataSteelBar,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        title: {
           display: true,
-          position: "right",
-          align: "start"
+          text: 'KG',
+          color: 'white',
+          font: {
+            // family: 'Comic Sans MS',
+            size: 12,
+            weight: 'bold',
+            lineHeight: 1,
+          },
+        },
+        beginAtZero: true,
+        ticks: {
+          color: 'white'
+        }
+      },
+      x: {
+        ticks: {
+          color: 'white'
+        }
       }
-      }
-      
-  });
-  
-
-
-
-  const chart2=new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderColor:'rgba(0,100,180,1)',
-        borderWidth: 1
-
-      }]
     },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true
+    plugins: {
+      title: {
+        display: true,
+        font: { weight: 'bold', size: '20' },
+        text: 'Acero',
+        color: 'white'
+      },
+      legend: {
+        display: false
+      }
+    }
+  }
+});
+
+//Chart Acero Donut
+const dataSteelDonut = {
+  labels: labeldefault,
+  datasets: [{
+    label: 'Acero',
+    data: datadefault,
+    borderColor: bootstrapDark,
+    borderWidth: 4,
+    backgroundColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 159, 64, 1)',
+      'rgba(255, 205, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(201, 203, 207, 1)'
+    ],
+    // offset:5,
+    // spacing:5,
+    weight: 0.8,
+    hoverOffset: 20,
+
+  }]
+};
+
+const chartSteelDonut = new Chart(ctx3, {
+  type: 'doughnut',
+  data: dataSteelDonut,
+  options: {
+    responsive: true,
+    // cutout:50,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        font: { weight: 'bold', size: '20' },
+        text: 'Acero',
+        color: 'white'
+        // padding: {
+        //   top: 10,
+        //   bottom: 30
+        // }
+      },
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          color: 'white',
+          font: { weight: 'normal' },
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>{
+            return  context.parsed+ '%';
+          }
         }
       }
     }
-  });
-  
+  }
+
+});
+
+
+
+
+const chart2 = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      borderColor: 'rgba(0,100,180,1)',
+      borderWidth: 1
+
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
 
 
 
 
 
 let data2 = {
-    labels: [
-      'Armadura',
-      'Punta',
-      'Confinamiento'
+  labels: [
+    'Armadura',
+    'Punta',
+    'Confinamiento'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    borderColor: bootstrapDark,
+    borderWidth: 5,
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
     ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
-      borderColor:bootstrapDark,
-      borderWidth: 5,
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
-    }]
-  };
+    hoverOffset: 4
+  }]
+};
 
 
 
 
 
-  const chart4 = new Chart(ctx4, {
-    type: 'doughnut',
-    data: data2,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-      
-  });
+const chart4 = new Chart(ctx4, {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
 
-  new Chart(ctx5, {
-    type: 'doughnut',
-    data: data2,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-      
-  });
+});
 
-  new Chart(ctx6, {
-    type: 'doughnut',
-    data: data2,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-      
-  });
+new Chart(ctx5, {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+
+});
+
+new Chart(ctx6, {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+
+});
 
 
- //Variables
-const Proyectos=[];
-const ProyectosHA=[];
-const ProyectosFE=[];
+//Variables
+const Proyectos = [];
+const ProyectosHA = [];
+const ProyectosFE = [];
 /* global bootstrap: false */
 (() => {
   'use strict'
@@ -192,11 +251,11 @@ const ProyectosFE=[];
 
 
 
-class Proyecto{
-  constructor(row,header){
-    header.forEach(el=>{
+class Proyecto {
+  constructor(row, header) {
+    header.forEach(el => {
       let index = header.indexOf(el);
-      this[el]=row[index];
+      this[el] = row[index];
     })
   }
 }
@@ -244,97 +303,97 @@ const excelInput = document.getElementById('cbcExcel')
 // Leer excel desde ruta en archivos 
 fetch(excelInput.src)
   .then(response => response.blob())
-  .then(blob => readXlsxFile(blob,{sheet:1}))
+  .then(blob => readXlsxFile(blob, { sheet: 1 }))
   .then((rows) => {
     const content = rows;
     const excel = new Excel(content)
-    
+
     for (let i = 0; i < excel.rows().count(); i++) {
-      if (excel.rows().get(i)[0]!=null) {
-        Proyectos.push(new Proyecto(excel.rows().get(i),excel.header()))
+      if (excel.rows().get(i)[0] != null) {
+        Proyectos.push(new Proyecto(excel.rows().get(i), excel.header()))
       }
     }
     proyectListLoad();
   })
 
-  //Leemoe Datos de Hormigon
+//Leemoe Datos de Hormigon
 fetch(excelInput.src)
-.then(response => response.blob())
-.then(blob => readXlsxFile(blob,{sheet:2}))
-.then((rows) => {
-  const content = rows;
-  const excel = new Excel(content)
-  
-  for (let i = 0; i < excel.rows().count(); i++) {
-    if (excel.rows().get(i)[0]!=null) {
-      ProyectosHA.push(new Proyecto(excel.rows().get(i),excel.header()))
+  .then(response => response.blob())
+  .then(blob => readXlsxFile(blob, { sheet: 2 }))
+  .then((rows) => {
+    const content = rows;
+    const excel = new Excel(content)
+
+    for (let i = 0; i < excel.rows().count(); i++) {
+      if (excel.rows().get(i)[0] != null) {
+        ProyectosHA.push(new Proyecto(excel.rows().get(i), excel.header()))
+      }
     }
-  }
-})
+  })
 
 //Leemoe Datos de Acero
 fetch(excelInput.src)
-.then(response => response.blob())
-.then(blob => readXlsxFile(blob,{sheet:3}))
-.then((rows) => {
-  const content = rows;
-  const excel = new Excel(content)
-  
-  for (let i = 0; i < excel.rows().count(); i++) {
-    if (excel.rows().get(i)[0]!=null) {
-      ProyectosFE.push(new Proyecto(excel.rows().get(i),excel.header()))
+  .then(response => response.blob())
+  .then(blob => readXlsxFile(blob, { sheet: 3 }))
+  .then((rows) => {
+    const content = rows;
+    const excel = new Excel(content)
+
+    for (let i = 0; i < excel.rows().count(); i++) {
+      if (excel.rows().get(i)[0] != null) {
+        ProyectosFE.push(new Proyecto(excel.rows().get(i), excel.header()))
+      }
     }
-  }
-})
+  })
 
 
 
 //Carga los proyectos en la lista
 function proyectListLoad() {
-  const proyectSelector=document.getElementById("proyectselector")
-  proyectSelector.addEventListener('change',proyectSelectorChange)
+  const proyectSelector = document.getElementById("proyectselector")
+  proyectSelector.addEventListener('change', proyectSelectorChange)
 
-  Proyectos.sort((a,b)=>a.Codigo-b.Codigo);
-  Proyectos.forEach(proyecto=>{
-    const op=document.createElement('option');
-    op.value=proyecto.Codigo;
-    op.innerHTML=proyecto.Codigo + " - " + proyecto.Proyecto;
+  Proyectos.sort((a, b) => a.Codigo - b.Codigo);
+  Proyectos.forEach(proyecto => {
+    const op = document.createElement('option');
+    op.value = proyecto.Codigo;
+    op.innerHTML = proyecto.Codigo + " - " + proyecto.Proyecto;
     proyectSelector.appendChild(op);
   });
 }
 
 
-function proyectSelectorChange(){
-  const proyectSelector=document.getElementById("proyectselector");
-  const selectedProyect=ProyectosFE.find(e=>e.Codigo==proyectSelector.value);
-  const ceroDecimal={maximumFractionDigits: 0};
-  const dosDecimal={maximumFractionDigits: 2};
+function proyectSelectorChange() {
+  const proyectSelector = document.getElementById("proyectselector");
+  const selectedProyect = ProyectosFE.find(e => e.Codigo == proyectSelector.value);
+  const ceroDecimal = { maximumFractionDigits: 0 };
+  const dosDecimal = { maximumFractionDigits: 2 };
 
   console.table(selectedProyect);
-  const labels=[];
-  const labeldata=[];
+  const labels = [];
+  const labeldata = [];
   for (const key in selectedProyect) {
-    if (key.slice(-2)=="kg" && selectedProyect[key]>0 && !key.includes('Total') ) {
-      labeldata.push(selectedProyect[key]);
+    if (key.slice(-2) == "kg" && selectedProyect[key] > 0 && !key.includes('Total')) {
+      labeldata.push(Math.round(selectedProyect[key]));
     }
   }
-  labeldata.sort((a,b)=>a-b )
-  labeldata.forEach(e=>{
+  labeldata.sort((a, b) => a - b)
+  labeldata.forEach(e => {
     for (const key in selectedProyect) {
-        if (selectedProyect[key]==e) {
-          labels.push(key.slice(0,-3));
-        }
+      if (Math.round(selectedProyect[key]) == e) {
+        labels.push(key.slice(0, -3));
+      }
     }
   })
 
-  dataSteelBar.labels=labels;
-  dataSteelBar.datasets[0].data=labeldata;
+  dataSteelBar.labels = labels;
+  dataSteelBar.datasets[0].data = labeldata;
   chartSteelBar.update();
 
 
-  const labeldatapercent=labeldata.map(el=> Math.round(el/labeldata.reduce((a,b)=>a+b)*100*10)/10);
-  dataSteelDonut.labels=labels;
-  dataSteelDonut.datasets[0].data=labeldatapercent;
+  const labeldatapercent = labeldata.map(el => Math.round(el / labeldata.reduce((a, b) => a + b) * 100 * 10) / 10);
+  dataSteelDonut.labels = labels;
+  dataSteelDonut.datasets[0].data = labeldatapercent;
   chartSteelDonut.update();
 
 }
@@ -343,7 +402,7 @@ function proyectSelectorChange(){
 function addData(chart, label, data) {
   chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
-      dataset.data.push(data);
+    dataset.data.push(data);
   });
   chart.update();
 }
@@ -351,7 +410,7 @@ function addData(chart, label, data) {
 function removeData(chart) {
   chart.data.labels.pop();
   chart.data.datasets.forEach((dataset) => {
-      dataset.data.pop();
+    dataset.data.pop();
   });
   chart.update();
 }
