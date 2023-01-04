@@ -13,11 +13,13 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/signin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
 </head>
 
 <body class="text-center ">
     <main class="form-signin w-100 m-auto border-2 ">
-        <form id="signInForm ">
+        <form id="signInForm">
             <a href="https://www.btd.cl">
                 <img class="mb-4" src="./img/logo-btd.svg" alt="" width="80">
             </a>
@@ -38,20 +40,59 @@
                     <input type="checkbox" value="remember-me"> Recordar
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit" id="form_submit" onclick="return formSubmit()">Iniciar</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" id="form_submit">Iniciar</button>
             <label class="p-3" id="floatingMessage">¿Eres nuevo en BTD? 
                 <span><a href="" onclick="return registro()">Regístrate</a></span>
             </label>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSignin">
+                Regístrate
+              </button>
             <p class="mb-3 text-muted">&copy; 2022</p>
         </form>
+
+        <div class="modal fade modal-signin py-5" tabindex="-1" role="dialog" id="modalSignin">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                  <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+                  <h1 class="fw-bold mb-0 fs-2">Registro</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-5 pt-0">
+                  <form class="" id="modalSigninForm">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control rounded-3" id="modalName" placeholder="Juan">
+                        <label for="modalName">Nombre</label>
+                      </div>
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control rounded-3" id="modalEmail" placeholder="name@example.com">
+                      <label for="modalEmail">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control rounded-3" id="modalPassword" placeholder="Password">
+                      <label for="modalPassword">Password</label>
+                    </div>
+                    <div class="form-floating mb-3" id="checkIconMessage">
+                        <i class="bi bi-check-circle" style="font-size: 3rem; color: green;"></i>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Regístrate</button>
+                    <small class="text-muted">Al hacer clic en "Regístrate", aceptas nuestras Condiciones, la Política de privacidad y la Política de cookies.</small>
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
     </main>
 
     <a href="./pages/home.html" id="anchor_home"></a>
 
     <!-- JavaScript Bundle with Popper -->
 
-    <script src="./js/main.js"></script>
+    <script src="./js/index.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/argon2-browser/1.18.0/argon2-bundled.min.js" integrity="sha512-Alrh8vbmKDc5xiq7I/y8LTDwy9nw1nT9S/yR73HMMoWrpX4S1kizNPdWM896c/CDIGILNwAiaih627A94kRhYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
