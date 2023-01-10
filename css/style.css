@@ -69,3 +69,8 @@
 .bg{
     background-color: rgb(38, 45, 54);
 }
+
+.transparent-button{
+    background-color: transparent;
+    color:blue;
+}
