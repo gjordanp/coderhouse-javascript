@@ -6,11 +6,12 @@ let savedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 let savedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
 
 
-if (savedEmail!="" && savedPass!="") {
+(savedEmail || false)  && (savedPass|| false) && loadSavedUser();
+
+function loadSavedUser(){
     document.getElementById("floatingInput").value=savedEmail;
     document.getElementById("floatingPassword").value=savedPass;
 }
-
 
 let emailR;
 let passR;
@@ -158,12 +159,14 @@ async function formSubmit(e)
     if(loginSuccess)
     {
         document.getElementById('anchor_home').click();
+        return false;
     }
     else
     {
         document.getElementById("floatingMessage").innerHTML="Email y/o password no coinciden";
         document.getElementById("floatingMessage").style.color="red";
         document.getElementById("floatingMessage").style.display = "block";
+        return false;
     }
 }
 
