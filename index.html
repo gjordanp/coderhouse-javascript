@@ -37,7 +37,7 @@
             </div>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Recordar
+                    <input type="checkbox" value="remember-me" id="recordarCheckbox"> Recordar
                 </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit" id="form_submit">Iniciar</button>
@@ -72,8 +72,13 @@
                       <input type="password" class="form-control rounded-3" id="modalPassword" placeholder="Password">
                       <label for="modalPassword">Password</label>
                     </div>
-                    <div class="form-floating mb-3" id="checkIconMessage">
+                    <div class="form-floating mb-3" id="checkIcon">
                         <i class="bi bi-check-circle" style="font-size: 3rem; color: green;"></i>
+                    </div>
+                    <div class="form-floating mb-3" id="xIcon">
+                      <i class="bi bi-x-circle" style="font-size: 3rem; color: red;"></i>
+                    </div>
+                    <div class="form-floating mb-3" id="errorMessage" style="color: red">
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Regístrate</button>
                     <small class="text-muted">Al hacer clic en "Regístrate", aceptas nuestras Condiciones, la Política de privacidad y la Política de cookies.</small>

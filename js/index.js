@@ -1,19 +1,31 @@
-
-//document.getElementById("form_submit").onclick = function() {formSubmit()};
+let loginSuccess;
 let email;
 let pass;
+//document.getElementById("form_submit").onclick = function() {formSubmit()};
+let savedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
+let savedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
+
+
+if (savedEmail!="" && savedPass!="") {
+    document.getElementById("floatingInput").value=savedEmail;
+    document.getElementById("floatingPassword").value=savedPass;
+}
+
+
 let emailR;
 let passR;
 
-let usuarios=[new usuario('admin','admin@btd.cl','admin')];
+let usuarios=[];
 //localStorage.getItem('usuarios')
 
-let loginSuccess;
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 //Esconder mensaje
 document.getElementById("floatingMessage").style.display = "none";
-document.getElementById("checkIconMessage").style.display="none";
+document.getElementById("checkIcon").style.display="none";
+document.getElementById("xIcon").style.display="none";
+
 //Buscamos el click
 //document.getElementById("form_submit").addEventListener("click", formSubmit);
 
@@ -26,12 +38,12 @@ registerForm.addEventListener('submit',modalSubmit);
 
 //Submit Registro
 async function modalSubmit(e){
-    e.preventDefault();
+    e?.preventDefault();
     const regName=document.getElementById("modalName").value;
     const regEmail=document.getElementById("modalEmail").value;
     const regPass=document.getElementById("modalPassword").value;
 
-    if (regName!='') {
+    if (regName!='' && regEmail!='' && regPass!='') {
         //Hash del Password con Argon2
         let encpass;
         await argon2.hash({
@@ -42,23 +54,34 @@ async function modalSubmit(e){
             usuarios.push(new usuario(regName,regEmail,res.encoded))
             encpass=res.encoded;
             localStorage.setItem("usuarios", JSON.stringify(usuarios)); 
+            registerForm.querySelectorAll('input').forEach(i=>i.value="");
         })
         .catch(err => {
             err.message // error message as string, if available
             err.code // numeric error code
         })
-        console.log(encpass);
-        document.getElementById("checkIconMessage").style.display="block";
+        //console.log(encpass);
+
+        if (encpass!=null) {
+            document.getElementById("checkIcon").style.display="block";
+            await delay(1000);
+            document.getElementById("modalSignin").querySelector('button').click();
+            document.getElementById("checkIcon").style.display="none";
+        }
+
+    }
+    else{
+        document.getElementById("xIcon").style.display="block";
+        document.getElementById("errorMessage").style.display="block";
+        document.getElementById("errorMessage").innerHTML="Debe completar los 3 campos";
         await delay(1000);
-        document.getElementById("modalSignin").querySelector('button').click();
-        document.getElementById("checkIconMessage").style.display="none";
+        document.getElementById("errorMessage").style.display="none";
+        document.getElementById("xIcon").style.display="none";
     }
 
 }
 
-function validarCampos(regName,regEmail,regPass){
 
-}
 
 async function argonHash(pass){
     let enc;
@@ -92,23 +115,29 @@ async function argonVerifyPassword(password, encoded) {
 
 async function formSubmit(e) 
 {
-    e.preventDefault();
+    e?.preventDefault();
     email=document.getElementById("floatingInput").value;
-    pass= document.getElementById("floatingPassword").value;
+    pass=document.getElementById("floatingPassword").value;
+    recordar= document.getElementById("recordarCheckbox").checked;
     
-    let usuarios = JSON.parse(localStorage.getItem("Usuario1"));
+    //Usamos operador AND
+    if (recordar) {
+        sessionStorage.removeItem('sessionUser');
+        sessionStorage.setItem('sessionUser',JSON.stringify({email:email, password:pass}));
+    }
+    
 
-    if (email==usuario1.user) {
-        // await argon2.verify({ pass:pass , encoded: usuario1.pass })
-        // .then((verify) => loginSuccess = true)
-        // .catch(e => console.error(e.message, e.code))
-        if (argonVerifyPassword(pass, usuario1.pass)) {
-            console.log('OK');
-        }
-        else{
-            console.log('error');
-        }
+    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
 
+    if (usuarios.map(e=>e.email).includes(email) && pass!="") {
+
+        let encodedPass= usuarios.find(e=>e.email=email).password;
+        await argon2.verify({ pass:pass , encoded: encodedPass })
+        .then((verify) => {
+            loginSuccess = true;
+            document.getElementById('anchor_home').click();
+        })
+        .catch(e => console.error(e.message, e.code))
     }
 
     // //Revisamos coincidencia de usuario y password
@@ -123,14 +152,12 @@ async function formSubmit(e)
     if(loginSuccess)
     {
         document.getElementById('anchor_home').click();
-        return false;
     }
     else
     {
         document.getElementById("floatingMessage").innerHTML="Email y/o password no coinciden";
         document.getElementById("floatingMessage").style.color="red";
         document.getElementById("floatingMessage").style.display = "block";
-        return false;
     }
 }
 
