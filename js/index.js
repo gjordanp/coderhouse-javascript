@@ -30,11 +30,10 @@ document.getElementById("xIcon").style.display="none";
 //document.getElementById("form_submit").addEventListener("click", formSubmit);
 
 //Eventos
-const signInForm=document.getElementById("signInForm")
-signInForm.addEventListener('submit',formSubmit);
+const signInForm = document.getElementById("signInForm");
+signInForm.addEventListener("submit", formSubmit);
 const registerForm = document.getElementById("modalSigninForm");
-registerForm.addEventListener('submit',modalSubmit);
-
+registerForm.addEventListener("submit", modalSubmit);
 
 //Submit Registro
 async function modalSubmit(e){
@@ -83,34 +82,41 @@ async function modalSubmit(e){
 
 
 
-async function argonHash(pass){
-    let enc;
-    await argon2.hash({
+function validarCampos(regName, regEmail, regPass) {}
+
+async function argonHash(pass) {
+  let promise = new Promise((resolve) => {
+    argon2
+      .hash({
         pass: pass,
-        salt: 'CubicaSalt',
-    })
-    .then(res => {
-        enc=res.encoded;
-    })
-    .catch(err => {
-        err.message // error message as string, if available
-        err.code // numeric error code
-    })
-    return enc;
+        salt: "CubicaSalt",
+      })
+      .then((res) => {
+        resolve(res.encoded);
+      })
+      .catch((err) => {
+        err.message; // error message as string, if available
+        err.code; // numeric error code
+        resolve("false");
+      });
+  });
+  return await promise;
 }
 //
-async function argonVerify(pass, encoded){
-    await argon2.verify({ pass:pass , encoded: encoded })
-    .then(() => {return true})
-    .catch(e => {
-        console.error(e.message, e.code);
-        return false;
+async function argonVerify(pass, encoded) {
+  await argon2
+    .verify({ pass: pass, encoded: encoded })
+    .then(() => {
+      return true;
     })
-
+    .catch((e) => {
+      console.error(e.message, e.code);
+      return false;
+    });
 }
 
 async function argonVerifyPassword(password, encoded) {
-    return await argon2.verify({ pass:password , encoded: encoded });
+  return await argon2.verify({ pass: password, encoded: encoded });
 }
 
 async function formSubmit(e) 
@@ -161,74 +167,71 @@ async function formSubmit(e)
     }
 }
 
-function usuario(nombre,email,password){
-    this.nombre=nombre;
-    this.email=email;
-    this.password=password;
-    return false;
+function usuario(nombre, email, password) {
+  this.nombre = nombre;
+  this.email = email;
+  this.password = password;
+  return false;
 }
 
+function registro() {
+  const regex = /^([\S\d]+)@(\S+)[.](\S+.?\S+)$/;
+  emailR = prompt("Ingresa tu Email");
+  while (!emailR.includes("@") || !emailR.includes(".")) {
+    alert("Revísa el formato del Email ejemplo: juan@mail.cl");
+    emailR = prompt("Ingresa tu Email");
+  }
 
-function registro(){
-    const regex=/^([\S\d]+)@(\S+)[.](\S+.?\S+)$/;
-    emailR=prompt("Ingresa tu Email")
-    while(!emailR.includes('@') || !emailR.includes('.')){
-        alert("Revísa el formato del Email ejemplo: juan@mail.cl")
-        emailR=prompt("Ingresa tu Email")
-    }
+  passR = prompt("Ingresa tu Password (8 caracteres)");
+  while (passR.length < 8) {
+    alert("Password debe contener un minimo de 8 caracteres");
+    passR = prompt("Ingresa tu Password (8 caracteres)");
+  }
 
-    passR=prompt("Ingresa tu Password (8 caracteres)")
-    while(passR.length<8){
-        alert("Password debe contener un minimo de 8 caracteres")
-        passR=prompt("Ingresa tu Password (8 caracteres)")
-    }
-
-    // Password Hash
-    argon2.hash({
-        // required
-        pass: passR,
-        salt: 'Somesomesalt',
+  // Password Hash
+  argon2
+    .hash({
+      // required
+      pass: passR,
+      salt: "Somesomesalt",
     })
-    .then(res => {
-      res.hash ;  // hash as Uint8Array
+    .then((res) => {
+      res.hash; // hash as Uint8Array
       res.hashHex; // hash as hex-string
-      res.encoded;// encoded hash, as required by argon2
-      localStorage.setItem("Usuario1", JSON.stringify({user:emailR , pass:res.encoded})); 
+      res.encoded; // encoded hash, as required by argon2
+      localStorage.setItem(
+        "Usuario1",
+        JSON.stringify({ user: emailR, pass: res.encoded })
+      );
     })
-    .catch(err => {
-        err.message // error message as string, if available
-        err.code // numeric error code
-    })
+    .catch((err) => {
+      err.message; // error message as string, if available
+      err.code; // numeric error code
+    });
 
-   
-
-    usuarios.push(new usuario(emailR,passR))
-    alert("¡Registro Exitoso! ahora Inicia Sesión")
-    return false;
+  usuarios.push(new usuario(emailR, passR));
+  alert("¡Registro Exitoso! ahora Inicia Sesión");
+  return false;
 }
 
-async function argonEncHash(pass){
-        // Password Hash
-        let encoded=null;
-        await argon2.hash({
-            // required
-            pass: pass,
-            salt: 'CubicaSalt',
-        })
-        .then(res => {
-          res.hash ;  // hash as Uint8Array
-          res.hashHex; // hash as hex-string
-          encoded=res.encoded;// encoded hash, as required by argon2
-          //localStorage.setItem("Usuario1", JSON.stringify({user:emailR , pass:res.encoded})); 
-        })
-        .catch(err => {
-            err.message // error message as string, if available
-            err.code // numeric error code
-        })
-        return encoded
+async function argonEncHash(pass) {
+  // Password Hash
+  let encoded = null;
+  await argon2
+    .hash({
+      // required
+      pass: pass,
+      salt: "CubicaSalt",
+    })
+    .then((res) => {
+      res.hash; // hash as Uint8Array
+      res.hashHex; // hash as hex-string
+      encoded = res.encoded; // encoded hash, as required by argon2
+      //localStorage.setItem("Usuario1", JSON.stringify({user:emailR , pass:res.encoded}));
+    })
+    .catch((err) => {
+      err.message; // error message as string, if available
+      err.code; // numeric error code
+    });
+  return encoded;
 }
-
-
-
-
-
