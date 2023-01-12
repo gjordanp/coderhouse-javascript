@@ -1,3 +1,35 @@
+//Start Verificar session--------------------------------------------------------------------------------
+//buscamos credenciales desde SessionStorage
+let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
+let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
+
+verifySession();
+
+//Submit Inicio de Session
+async function verifySession(e) 
+{
+    e?.preventDefault();
+    let loginSuccess=false;
+    //Obtenemos lista de usuarios de base de datos
+    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    //Verificamos usuario
+    if (usuarios.map(e=>e.email).includes(sessionSavedEmail) && pass!="") {
+        let encodedPass= usuarios.find(e=>e.email=email).password;
+        //Funcion para verificar encoded password
+        await argon2.verify({ pass:sessionSavedPass , encoded: encodedPass })
+        .then((verify) => {
+            loginSuccess = true;
+        })
+        .catch(e => console.error(e.message, e.code))
+    }
+
+    if(!loginSuccess) //si las credenciales NO Coinciden redireccionamos al Index
+    {
+        document.getElementById('anchor_index').click();
+    }
+}
+//End verificar session--------------------------------------------------------------------------------
+
 // Real Viewport Height---------------------------------------------------------------------------
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
