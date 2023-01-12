@@ -72,5 +72,9 @@
 
 .transparent-button{
     background-color: transparent;
-    color:blue;
+    color:#0d6efd;
 }
+
+.colored-toast.swal2-icon-success {
+    background-color: #a5dc86 !important;
+  }

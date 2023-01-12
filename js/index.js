@@ -36,7 +36,17 @@ document.getElementById("floatingMessage").style.display = "none";
 document.getElementById("checkIcon").style.display="none";
 document.getElementById("xIcon").style.display="none";
 
-
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'white',
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true
+  })
 
 //Eventos
 const signInForm = document.getElementById("signInForm");
@@ -72,7 +82,7 @@ async function modalSubmit(e){
 
         if (encpass!=null) {
             document.getElementById("checkIcon").style.display="block";
-            await delay(1000);
+            await delay(2000);
             document.getElementById("modalSignin").querySelector('button').click();
             document.getElementById("checkIcon").style.display="none";
         }
@@ -82,12 +92,13 @@ async function modalSubmit(e){
         document.getElementById("xIcon").style.display="block";
         document.getElementById("errorMessage").style.display="block";
         document.getElementById("errorMessage").innerHTML="Debe completar los 3 campos";
-        await delay(1000);
+        await delay(2000);
         document.getElementById("errorMessage").style.display="none";
         document.getElementById("xIcon").style.display="none";
     }
 
 }
+
 
 
 //Submit Inicio de Session
@@ -117,21 +128,21 @@ async function formSubmit(e)
         await argon2.verify({ pass:pass , encoded: encodedPass })
         .then((verify) => {
             loginSuccess = true;
-            document.getElementById('anchor_home').click();
+            Toast.fire({
+                icon: 'success',
+                title: 'Hola '+usuarios.find(e=>e.email=email).nombre
+              })
+            setTimeout(()=>{
+                document.getElementById('anchor_home').click();
+            },2000) ; 
+            
         })
-        .catch(e => console.error(e.message, e.code))
-    }
-
-
-    if(loginSuccess) //si las credenciales coinciden redireccionamos a la pagina de inicio
-    {
-        document.getElementById('anchor_home').click();
-    }
-    else //si las credenciales no coinciden mostramos mensajes
-    {
-        document.getElementById("floatingMessage").innerHTML="Email y/o password no coinciden";
-        document.getElementById("floatingMessage").style.color="red";
-        document.getElementById("floatingMessage").style.display = "block";
+        .catch(e => {
+            console.error(e.message, e.code)
+            document.getElementById("floatingMessage").innerHTML="Email y/o password no coinciden";
+            document.getElementById("floatingMessage").style.color="red";
+            document.getElementById("floatingMessage").style.display = "block";
+        })
     }
 }
 
