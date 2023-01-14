@@ -140,12 +140,11 @@ async function formSubmit(e) {
                 console.error(e.message, e.code)
 
             })
-        if (loginSuccess !=true) {
-            document.getElementById("floatingMessage").innerHTML = "Email y/o password no coinciden";
-            document.getElementById("floatingMessage").style.color = "red";
-            document.getElementById("floatingMessage").style.display = "block";
-        }
-
+    }
+    if (loginSuccess !=true) {
+        document.getElementById("floatingMessage").innerHTML = "Email y/o password no coinciden";
+        document.getElementById("floatingMessage").style.color = "red";
+        document.getElementById("floatingMessage").style.display = "block";
     }
 }
 
