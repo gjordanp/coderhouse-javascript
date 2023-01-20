@@ -15,7 +15,7 @@ El objetivo de la plataforma es poder revisar y comparar los datos.
 
 #Caracteristicas
 - Login con password encriptado
-- Lectura de datos desde archivo excel con 
+- Lectura de datos desde archivo excel con NPM read-excel-file
 - Presentación de datos en tabla, funciones para filtrar tipo excel.
 - Presentación de datos en Cards
 - Presentación de Gráficos usando Chart.JS
