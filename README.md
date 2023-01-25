@@ -10,8 +10,9 @@ El objetivo de la plataforma es poder revisar y comparar los datos.
 
 # Funcionamiento
 
-- Crear un usuario o entrar con email y contraseña admin@btd.cl y admin respectivamente. 
-- Navergar por los distintos módulos para revisar los datos Proyectos Resumen y Detalle.
+- Crear un usuario.
+- Iniciar Sesión. 
+- Navegar por los distintos módulos para revisar los datos Proyectos Resumen y Detalle.
 
 # Caracteristicas
 - Login con password encriptado

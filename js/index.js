@@ -109,7 +109,7 @@ async function formSubmit(e) {
     pass = document.getElementById("floatingPassword").value;
     recordar = document.getElementById("recordarCheckbox").checked;
     let usuarios = JSON.parse(localStorage.getItem("usuarios"));
-    nombre = usuarios.find(e=>e.email==email).nombre;
+    nombre = usuarios?.find(e=>e.email==email)?.nombre;
     //]Guardamos los datos de inicio de session de LocalStorage o SessionStorage dependiendo si recordar esta checkeado¿
     if (recordar) {
         localStorage.removeItem('sessionUser');
@@ -123,7 +123,7 @@ async function formSubmit(e) {
 
 
 
-    if (usuarios.map(e => e.email).includes(email) && pass != "") {
+    if (usuarios?.map(e => e.email)?.includes(email) && pass != "") {
         let encodedPass = usuarios.find(e => e.email = email).password;
         //Funcion para verificar encoded password
         await argon2.verify({ pass: pass, encoded: encodedPass })
