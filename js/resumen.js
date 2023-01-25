@@ -2,6 +2,11 @@
 //buscamos credenciales desde SessionStorage
 let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
+let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+let nombre=usuarios.find(e=>e.email=sessionSavedEmail).nombre;
+
+//Indicamos las iniciales del usuario en el perfil
+document.getElementById('userInitialsDesktop').innerHTML=nombre.slice(0,3);
 
 verifySession();
 
@@ -13,8 +18,8 @@ async function verifySession(e)
     //Obtenemos lista de usuarios de base de datos
     let usuarios = JSON.parse(localStorage.getItem("usuarios"));
     //Verificamos usuario
-    if (usuarios.map(e=>e.email).includes(sessionSavedEmail) && pass!="") {
-        let encodedPass= usuarios.find(e=>e.email=email).password;
+    if (usuarios.map(e=>e.email).includes(sessionSavedEmail)) {
+        let encodedPass= usuarios.find(e=>e.email=sessionSavedEmail).password;
         //Funcion para verificar encoded password
         await argon2.verify({ pass:sessionSavedPass , encoded: encodedPass })
         .then((verify) => {
@@ -110,7 +115,7 @@ fetch(excelInput.src)
   .then(response => response.blob())
   .then(blob => readXlsxFile(blob,{sheet:1}))
   .then((rows) => {
-    console.log(rows);
+    //console.log(rows);
     const content = rows;
     const excel = new Excel(content)
     
@@ -158,5 +163,14 @@ function proyectListChange(){
   document.querySelector('#card_Moldaje> .card-body > .card-title').innerText=selectedProyect['MLD (m2)'].toLocaleString("en-US",ceroDecimal) + " m2";
   document.querySelector('#card_CuantiaV> .card-body > .card-title').innerText=selectedProyect['Fe/HA (kg/m3)'].toLocaleString("en-US",dosDecimal)+ " Kg/m3";
   document.querySelector('#card_CuantiaS > .card-body > .card-title').innerText=selectedProyect['Fe/Sup (kg/m2)'].toLocaleString("en-US",dosDecimal) + " Kg/m2";
+}
+
+//Cerrar Sesión
+document.getElementById('CerrarSesionMobile').addEventListener('click',cerrarSesion)
+document.getElementById('CerrarSesionDesktop').addEventListener('click',cerrarSesion)
+
+function cerrarSesion(){
+  sessionStorage.removeItem('sessionUser')
+  window.location.reload();
 }
 

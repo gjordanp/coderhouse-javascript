@@ -2,6 +2,10 @@
 //buscamos credenciales desde SessionStorage
 let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
+let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+let nombre=usuarios.find(e=>e.email=sessionSavedEmail).nombre;
+//Indicamos las iniciales del usuario en el perfil
+document.getElementById('userInitialsDesktop').innerHTML=nombre.slice(0,3);
 
 verifySession();
 
@@ -13,8 +17,8 @@ async function verifySession(e)
     //Obtenemos lista de usuarios de base de datos
     let usuarios = JSON.parse(localStorage.getItem("usuarios"));
     //Verificamos usuario
-    if (usuarios.map(e=>e.email).includes(sessionSavedEmail) && pass!="") {
-        let encodedPass= usuarios.find(e=>e.email=email).password;
+    if (usuarios.map(e=>e.email).includes(sessionSavedEmail)) {
+        let encodedPass= usuarios.find(e=>e.email=sessionSavedEmail).password;
         //Funcion para verificar encoded password
         await argon2.verify({ pass:sessionSavedPass , encoded: encodedPass })
         .then((verify) => {
@@ -50,8 +54,6 @@ const ctx1 = document.getElementById('myChart1');
 const ctx2 = document.getElementById('myChart2');
 const ctx3 = document.getElementById('myChart3');
 const ctx4 = document.getElementById('myChart4');
-const ctx5 = document.getElementById('myChart5');
-const ctx6 = document.getElementById('myChart6');
 
 let gradient = ctx1.getContext("2d").createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, 'rgba(0,60,100,0.5)');
@@ -59,7 +61,7 @@ gradient.addColorStop(1, 'rgba(0,60,100,0.1)');
 
 let labeldefault = ['Escalera', 'Fund', 'Perimetral', 'Vigas', 'Losas', 'Muros'];
 let datadefault = [4, 8, 12, 20, 28, 30];
-
+let numberFormat = Intl.NumberFormat('en-US',{maximumFractionDigits: 0});
 
 //ChartAceroBarras
 const dataSteelBar = {
@@ -113,6 +115,13 @@ const chartSteelBar = new Chart(ctx1, {
       },
       legend: {
         display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>{
+            return  numberFormat.format(context.parsed["y"])+ ' Kg';
+          }
+        }
       }
     }
   }
@@ -143,7 +152,7 @@ const dataSteelDonut = {
   }]
 };
 
-const chartSteelDonut = new Chart(ctx3, {
+const chartSteelDonut = new Chart(ctx2, {
   type: 'doughnut',
   data: dataSteelDonut,
   options: {
@@ -183,89 +192,137 @@ const chartSteelDonut = new Chart(ctx3, {
 });
 
 
+//ChartAceroBarras
+const dataHormigonBar = {
+  labels: labeldefault,
+  datasets: [{
+    label: 'Hormigon',
+    data: datadefault,
+    borderColor: 'rgba(0,100,180,1)',
+    backgroundColor: gradient,
+    borderWidth: 1
+  }]
 
+};
 
-const chart2 = new Chart(ctx2, {
+const chartHormigonBar = new Chart(ctx3, {
   type: 'bar',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      borderColor: 'rgba(0,100,180,1)',
-      borderWidth: 1
-
-    }]
-  },
+  data: dataHormigonBar,
   options: {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
       y: {
-        beginAtZero: true
+        title: {
+          display: true,
+          text: 'M3',
+          color: 'white',
+          font: {
+            // family: 'Comic Sans MS',
+            size: 12,
+            weight: 'bold',
+            lineHeight: 1,
+          },
+        },
+        beginAtZero: true,
+        ticks: {
+          color: 'white'
+        }
+      },
+      x: {
+        ticks: {
+          color: 'white'
+        }
+      }
+    },
+    plugins: {
+      title: {
+        display: true,
+        font: { weight: 'bold', size: '20' },
+        text: 'Hormigon',
+        color: 'white'
+      },
+      legend: {
+        display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>{
+            return  numberFormat.format(context.parsed["y"])+ ' M3';
+          }
+        }
       }
     }
   }
 });
 
-
-
-
-
-
-let data2 = {
-  labels: [
-    'Armadura',
-    'Punta',
-    'Confinamiento'
-  ],
+//Chart Acero Donut
+const dataHormigonDonut = {
+  labels: labeldefault,
   datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
+    label: 'Hormigon',
+    data: datadefault,
     borderColor: bootstrapDark,
-    borderWidth: 5,
+    borderWidth: 4,
     backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 159, 64, 1)',
+      'rgba(255, 205, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(201, 203, 207, 1)'
     ],
-    hoverOffset: 4
+    // offset:5,
+    // spacing:5,
+    weight: 0.8,
+    hoverOffset: 20,
+
   }]
 };
 
-
-
-
-
-const chart4 = new Chart(ctx4, {
+const chartHormigonDonut = new Chart(ctx4, {
   type: 'doughnut',
-  data: data2,
+  data: dataHormigonDonut,
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    // cutout:50,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        font: { weight: 'bold', size: '20' },
+        text: 'Hormigon',
+        color: 'white'
+        // padding: {
+        //   top: 10,
+        //   bottom: 30
+        // }
+      },
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          color: 'white',
+          font: { weight: 'normal' },
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>{
+            return  context.parsed+ '%';
+          }
+        }
+      }
+    }
   }
 
 });
 
-new Chart(ctx5, {
-  type: 'doughnut',
-  data: data2,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false
-  }
 
-});
 
-new Chart(ctx6, {
-  type: 'doughnut',
-  data: data2,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false
-  }
 
-});
 
 
 //Variables
@@ -397,36 +454,13 @@ function proyectListLoad() {
 
 function proyectSelectorChange() {
   const proyectSelector = document.getElementById("proyectselector");
-  const selectedProyect = ProyectosFE.find(e => e.Codigo == proyectSelector.value);
-  const ceroDecimal = { maximumFractionDigits: 0 };
-  const dosDecimal = { maximumFractionDigits: 2 };
+  const selectedProyectSteel = ProyectosFE.find(e => e.Codigo == proyectSelector.value);
+  const selectedProyectHormigon = ProyectosHA.find(e => e.Codigo == proyectSelector.value);
+  // const ceroDecimal = { maximumFractionDigits: 0 };
+  // const dosDecimal = { maximumFractionDigits: 2 };
 
-  console.table(selectedProyect);
-  const labels = [];
-  const labeldata = [];
-  for (const key in selectedProyect) {
-    if (key.slice(-2) == "kg" && selectedProyect[key] > 0 && !key.includes('Total')) {
-      labeldata.push(Math.round(selectedProyect[key]));
-    }
-  }
-  labeldata.sort((a, b) => a - b)
-  labeldata.forEach(e => {
-    for (const key in selectedProyect) {
-      if (Math.round(selectedProyect[key]) == e) {
-        labels.push(key.slice(0, -3));
-      }
-    }
-  })
-
-  dataSteelBar.labels = labels;
-  dataSteelBar.datasets[0].data = labeldata;
-  chartSteelBar.update();
-
-
-  const labeldatapercent = labeldata.map(el => Math.round(el / labeldata.reduce((a, b) => a + b) * 100 * 10) / 10);
-  dataSteelDonut.labels = labels;
-  dataSteelDonut.datasets[0].data = labeldatapercent;
-  chartSteelDonut.update();
+  updateSteelCharts(selectedProyectSteel);
+  updateHormigonCharts(selectedProyectHormigon);
 
 }
 
@@ -445,4 +479,66 @@ function removeData(chart) {
     dataset.data.pop();
   });
   chart.update();
+}
+
+//Funcion para actualizar Graficos de Acero
+function updateSteelCharts(selectedProyect){
+  console.table(selectedProyect);
+
+  const labeldata = [];
+  for (const key in selectedProyect) {
+    if (key.slice(-2) == "kg" && selectedProyect[key] > 0 && !key.includes('Total')) {
+      labeldata.push({key:key.slice(0, -3), value:selectedProyect[key]});
+    }
+  }
+  //ordenamos de menor a mayor
+  labeldata.sort((a, b) => a.value- b.value)
+
+  const labelsValue=labeldata.map(e=>e.value);
+  const labelsKey=labeldata.map(e=>e.key);
+
+  dataSteelBar.labels = labelsKey;
+  dataSteelBar.datasets[0].data = labelsValue;
+  chartSteelBar.update();
+
+  const labeldatapercent = labelsValue.map(el => Math.round(el / labelsValue.reduce((a, b) => a + b) * 100 * 10) / 10);
+  dataSteelDonut.labels = labelsKey;
+  dataSteelDonut.datasets[0].data = labeldatapercent;
+  chartSteelDonut.update();
+}
+
+//Funcion para actualizar Graficos de Hormigon
+function updateHormigonCharts(selectedProyect){
+  //console.table(selectedProyect);
+
+  const labeldata = [];
+  for (const key in selectedProyect) {
+    if (key.slice(-2) == "m3" && selectedProyect[key] > 0 && !key.includes('Total') && !key.includes('Muros Int') && !key.includes('Perimetrales')) {
+      labeldata.push({key:key.slice(0, -3), value:selectedProyect[key]});
+    }
+  }
+  //ordenamos de menor a mayor
+  labeldata.sort((a, b) => a.value- b.value)
+
+  const labelsValue=labeldata.map(e=>e.value);
+  const labelsKey=labeldata.map(e=>e.key);
+
+  dataHormigonBar.labels = labelsKey;
+  dataHormigonBar.datasets[0].data = labelsValue;
+  chartHormigonBar.update();
+
+
+  const labeldatapercent = labelsValue.map(el => Math.round(el / labelsValue.reduce((a, b) => a + b) * 100 * 10) / 10);
+  dataHormigonDonut.labels = labelsKey
+  dataHormigonDonut.datasets[0].data = labeldatapercent;
+  chartHormigonDonut.update();
+}
+
+//Cerrar Sesión
+document.getElementById('CerrarSesionMobile').addEventListener('click',cerrarSesion)
+document.getElementById('CerrarSesionDesktop').addEventListener('click',cerrarSesion)
+
+function cerrarSesion(){
+  sessionStorage.removeItem('sessionUser')
+  window.location.reload();
 }

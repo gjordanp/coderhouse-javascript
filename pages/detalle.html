@@ -71,16 +71,14 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+          <strong id="userInitialsDesktop">mdo</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" href="#" id="CerrarSesionDesktop">Cerrar Sesión</a></li>
         </ul>
       </div>
     </div>
@@ -131,11 +129,10 @@
           <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small shadow">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" href="#" id="CerrarSesionMobile">Cerrar Sesion</a></li>
         </ul>
       </div>
     </div>
@@ -157,7 +154,7 @@
 
       </div>
       <div class="row">
-        <h2 class="text-white mt-3">Proyecto</h2>
+        <h2 class="text-white mt-3">Cubicación Acero</h2>
       </div>
       <div class="row g-2 g-sm-3" >
           <div class="col col-sm-6">
@@ -167,34 +164,24 @@
           </div>
           <div class="col col-sm-6">
             <div class="chart-container card card-shadow bg text-white p-3" style="height: 40vh;">
-              <canvas id="myChart3"></canvas>
+              <canvas id="myChart2"></canvas>
             </div>
           </div>
       </div>
 
 
       <div class="row">
-        <h2 class="text-white mt-3">Cubicación</h2>
+        <h2 class="text-white mt-3">Cubicación Hormigón</h2>
       </div>
       <div class="row g-2 g-sm-3">
-        <div class="col-6 col-sm-3">
-          <div class="chart-container card card-shadow bg text-white p-3" style="height: 30vh;">
+        <div class="col col-sm-6">
+          <div class="chart-container card card-shadow bg text-white p-3 w-sm-100" style="height: 40vh;">
+            <canvas id="myChart3"></canvas>
+          </div>
+        </div>
+        <div class="col col-sm-6">
+          <div class="chart-container card card-shadow bg text-white p-3" style="height: 40vh;">
             <canvas id="myChart4"></canvas>
-          </div>
-        </div>
-        <div class="col-6 col-sm-3">
-          <div class="chart-container card card-shadow bg text-white p-3" style="height: 30vh;">
-            <canvas id="myChart5"></canvas>
-          </div>
-        </div>
-        <div class="col-6 col-sm-3">
-          <div class="chart-container card card-shadow bg text-white p-3" style="height: 30vh;">
-            <canvas id="myChart6"></canvas>
-          </div>
-        </div>
-        <div class="col-6 col-sm-3">
-          <div class="chart-container card card-shadow bg text-white p-3" style="height: 30vh;">
-            <canvas id="myChart2"></canvas>
           </div>
         </div>
       </div>
@@ -220,8 +207,8 @@
   <script src="../js/bootstrap.bundle.min.js"></script>
   <!-- <script src="../js/home.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/argon2-browser/1.18.0/argon2-bundled.min.js" integrity="sha512-Alrh8vbmKDc5xiq7I/y8LTDwy9nw1nT9S/yR73HMMoWrpX4S1kizNPdWM896c/CDIGILNwAiaih627A94kRhYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="../js/detalle.js"></script>
-
 </body>
 
 </html>

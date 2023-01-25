@@ -1,11 +1,12 @@
 //Variables
 let loginSuccess;
+let nombre;
 let email;
 let pass;
 let emailR;
 let passR;
 let usuarios = [];
-
+//localStorage.setItem("usuarios", JSON.stringify(usuarios));
 // let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 // let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
 
@@ -107,19 +108,20 @@ async function formSubmit(e) {
     email = document.getElementById("floatingInput").value;
     pass = document.getElementById("floatingPassword").value;
     recordar = document.getElementById("recordarCheckbox").checked;
-
+    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    nombre = usuarios.find(e=>e.email==email).nombre;
     //]Guardamos los datos de inicio de session de LocalStorage o SessionStorage dependiendo si recordar esta checkeado¿
     if (recordar) {
         localStorage.removeItem('sessionUser');
-        localStorage.setItem('sessionUser', JSON.stringify({ email: email, password: pass }));
+        localStorage.setItem('sessionUser', JSON.stringify({ nombre:nombre, email: email, password: pass }));
     }
     else {
         sessionStorage.removeItem('sessionUser');
-        sessionStorage.setItem('sessionUser', JSON.stringify({ email: email, password: pass }));
+        sessionStorage.setItem('sessionUser', JSON.stringify({ nombre:nombre, email: email, password: pass }));
     }
 
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+
 
     if (usuarios.map(e => e.email).includes(email) && pass != "") {
         let encodedPass = usuarios.find(e => e.email = email).password;
@@ -152,7 +154,6 @@ function usuario(nombre, email, password) {
     this.nombre = nombre;
     this.email = email;
     this.password = password;
-    return false;
 }
 
 

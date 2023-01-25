@@ -2,6 +2,10 @@
 //buscamos credenciales desde SessionStorage
 let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
+let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+let nombre=usuarios.find(e=>e.email=sessionSavedEmail).nombre;
+//Indicamos las iniciales del usuario en el perfil
+document.getElementById('userInitialsDesktop').innerHTML=nombre.slice(0,3);
 
 verifySession();
 
@@ -13,8 +17,8 @@ async function verifySession(e)
     //Obtenemos lista de usuarios de base de datos
     let usuarios = JSON.parse(localStorage.getItem("usuarios"));
     //Verificamos usuario
-    if (usuarios.map(e=>e.email).includes(sessionSavedEmail) && pass!="") {
-        let encodedPass= usuarios.find(e=>e.email=email).password;
+    if (usuarios.map(e=>e.email).includes(sessionSavedEmail)) {
+        let encodedPass= usuarios.find(e=>e.email=sessionSavedEmail).password;
         //Funcion para verificar encoded password
         await argon2.verify({ pass:sessionSavedPass , encoded: encodedPass })
         .then((verify) => {
@@ -127,7 +131,7 @@ fetch(excelInput.src)
   .then(response => response.blob())
   .then(blob => readXlsxFile(blob))
   .then((rows) => {
-    console.log(rows);
+    //console.log(rows);
     const content = rows;
     const excel = new Excel(content)
     
@@ -452,3 +456,12 @@ function navBarChange(e) {
 //   console.log(window.location.href.split("/").pop());
 
 //   window.location.href.trimEnd(window.location.href.split("/").pop())
+
+//Cerrar Sesión
+document.getElementById('CerrarSesionMobile').addEventListener('click',cerrarSesion)
+document.getElementById('CerrarSesionDesktop').addEventListener('click',cerrarSesion)
+
+function cerrarSesion(){
+  sessionStorage.removeItem('sessionUser')
+  window.location.reload();
+}
