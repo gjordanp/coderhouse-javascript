@@ -9,8 +9,8 @@ En esta plataforma se presentan los datos de múltiples cubicacióes realizadas 
 El objetivo de la plataforma es poder revisar y comparar los datos.
 
 # Funcionamiento
-
-- Crear un usuario o entrar con email y contraseña admin@btd.cl y admin respectivamente. 
+- Crear un usuario. 
+- Iniciar Sesión.
 - Navergar por los distintos módulos para revisar los datos Proyectos Resumen y Detalle.
 
 # Caracteristicas
