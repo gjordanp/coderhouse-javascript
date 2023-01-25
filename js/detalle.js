@@ -3,11 +3,12 @@
 let sessionSavedEmail=JSON.parse(sessionStorage.getItem('sessionUser'))?.email;
 let sessionSavedPass=JSON.parse(sessionStorage.getItem('sessionUser'))?.password;
 let usuarios = JSON.parse(localStorage.getItem("usuarios"));
-let nombre=usuarios.find(e=>e.email=sessionSavedEmail).nombre;
-//Indicamos las iniciales del usuario en el perfil
-document.getElementById('userInitialsDesktop').innerHTML=nombre.slice(0,3);
 
 verifySession();
+
+//Indicamos las iniciales del usuario en el perfil
+let nombre=usuarios.find(e=>e.email==sessionSavedEmail)?.nombre;
+document.getElementById('userInitialsDesktop').innerHTML=nombre.slice(0,3);
 
 //Submit Inicio de Session
 async function verifySession(e) 
